@@ -1,0 +1,90 @@
+{
+  "name": "@puzzle-framework/microservices",
+  "version": "1.1.0",
+  "description": "Puzzle framework microservices",
+  "author": "Puzzle Framework (puzzleframework@gmail.com)",
+  "license": "ISC",
+  "scripts": {
+    "test-deploy": "npm run build && npm run start",
+    "heroku-prebuild": "npm install",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "build": "tsc",
+    "start": "nodemon",
+    "start:dev": "nodemon",
+    "start:dev1": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start:debug": "nodemon --config nodemon-debug.json",
+    "prestart:prod": "rm -rf dist && npm run build",
+    "start:prod": "rm -rf dist && tsc && node dist/main.js",
+    "start:hmr": "node dist/server",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "webpack": "webpack --config webpack.config.js",
+    "ts-typeorm": "ts-node ./node_modules/typeorm/cli.js"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.0",
+    "@types/jest": "^24.0.13",
+    "@types/mongodb": "^3.3.15",
+    "@types/node": "^12.0.3",
+    "@types/supertest": "^2.0.7",
+    "@types/swagger-ui-express": "^3.0.0",
+    "@nestjs/common": "^6.3.1",
+    "@nestjs/core": "^6.3.1",
+    "@nestjs/jwt": "^6.1.1",
+    "@nestjs/passport": "^6.1.0",
+    "@nestjs/platform-express": "^6.3.1",
+    "@nestjs/swagger": "^3.0.2",
+    "@nestjs/typeorm": "^6.1.2",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.9.1",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.0.0",
+    "mongodb": "^3.5.2",
+    "mysql": "^2.17.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.2",
+    "swagger-ui-express": "^3.0.10",
+    "typeorm": "^0.2.17",
+    "typescript": "^3.5.1"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^6.3.1",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.17.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^24.0.0",
+    "ts-loader": "^6.0.1",
+    "ts-node": "^8.2.0",
+    "tsconfig-paths": "^3.8.0",
+    "tslint": "5.14.0",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  },
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/puzzle-framework/shared-components-react-js.git"
+  }
+}

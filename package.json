@@ -14,7 +14,7 @@
     "start:dev1": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:debug": "nodemon --config nodemon-debug.json",
     "prestart:prod": "rm -rf dist && npm run build",
-    "start:prod": "rm -rf dist && tsc && node dist/main.js",
+    "start:prod": "node dist/main.js",
     "start:hmr": "node dist/server",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",

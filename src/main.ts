@@ -12,14 +12,16 @@ async function bootstrap() {
   }*/,
   );
   setupSwagger(app);
-  app.enableCors();
-  app.useGlobalPipes(new ValidationPipe());
   app.use((req, res, next) => {
+    console.log('New request', req.url);
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
     next();
   });
+  // app.enableCors();
+  app.useGlobalPipes(new ValidationPipe());
+
   await app.listen(port);
 }
 bootstrap();

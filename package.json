@@ -9,7 +9,7 @@
     "heroku-prebuild": "npm install",
     "format": "prettier --write \"src/**/*.ts\"",
     "build": "tsc",
-    "start": "nodemon",
+    "start": "npm run start:prod",
     "start:dev": "nodemon",
     "start:dev1": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:debug": "nodemon --config nodemon-debug.json",

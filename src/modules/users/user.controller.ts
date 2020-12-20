@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiUseTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { UsersService, User } from './';
 import { BaseController } from '../base/base.controller';
@@ -27,6 +32,10 @@ export class UsersController extends BaseController<User> {
   }
 
   @Get('/')
+  @ApiOperation({
+    title: 'Get list of users',
+    operationId: 'listUsers',
+  })
   @ApiResponse({
     status: 200,
     description: 'Successful obtained list of users',
@@ -40,6 +49,10 @@ export class UsersController extends BaseController<User> {
   }
 
   @Get('/:id')
+  @ApiOperation({
+    title: 'Get specific user by id',
+    operationId: 'getUserById',
+  })
   @ApiResponse({
     status: 200,
     description: 'Successful obtained specific user',
@@ -52,6 +65,10 @@ export class UsersController extends BaseController<User> {
   }
 
   @Post('/')
+  @ApiOperation({
+    title: 'Add new user',
+    operationId: 'addUser',
+  })
   @ApiResponse({
     status: 200,
     description: 'Successful added user',
@@ -64,6 +81,10 @@ export class UsersController extends BaseController<User> {
   }
 
   @Put('/:id')
+  @ApiOperation({
+    title: 'Update user',
+    operationId: 'editUser',
+  })
   @ApiResponse({
     status: 200,
     description: 'Successful edited user',
@@ -80,6 +101,10 @@ export class UsersController extends BaseController<User> {
   }
 
   @Delete('/:id')
+  @ApiOperation({
+    title: 'Delete user',
+    operationId: 'deleteUser',
+  })
   @ApiResponse({
     status: 200,
     description: 'Successful deleted user',

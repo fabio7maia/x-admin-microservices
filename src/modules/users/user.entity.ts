@@ -32,6 +32,7 @@ export class User extends BaseEntity {
     length: 100,
     transformer: new PasswordTransformer(),
     nullable: false,
+    select: false,
   })
   @Exclude()
   password: string;

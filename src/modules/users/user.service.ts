@@ -34,7 +34,7 @@ export class UsersService extends BaseService<User> {
   }
 
   async create(userId: string, payload: UserServiceInput) {
-    let allowCreateUsers = true;
+    let allowCreateUsers = false;
 
     const allowCreateUsersConfig = await this.configurationsDbService.getByKey(
       'allowRegisterUsers',

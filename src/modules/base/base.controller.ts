@@ -26,6 +26,11 @@ export abstract class BaseController<T extends BaseEntity> {
       if (name) {
         where['name'] = Like(`%${name}%`);
       }
+
+      const module = req.query.module;
+      if (name) {
+        where['module'] = Like(`%${module}%`);
+      }
     }
 
     return await this.service.all({ where, order });

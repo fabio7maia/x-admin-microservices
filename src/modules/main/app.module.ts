@@ -20,6 +20,7 @@ import { ModesModule } from '../modes';
 import { FieldsModule } from '../fields';
 import { EntitiesRecordsModule } from '../entitiesRecords';
 import { UsersModule } from '../users';
+import { TranslationsModule } from '../translations';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { UsersModule } from '../users';
     FieldsModule,
     EntitiesRecordsModule,
     UsersModule,
+    TranslationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

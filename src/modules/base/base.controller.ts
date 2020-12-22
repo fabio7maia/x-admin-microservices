@@ -31,6 +31,11 @@ export abstract class BaseController<T extends BaseEntity> {
       if (name) {
         where['module'] = Like(`%${module}%`);
       }
+
+      const language = req.query.language;
+      if (name) {
+        where['language'] = Like(`%${language}%`);
+      }
     }
 
     return await this.service.all({ where, order });

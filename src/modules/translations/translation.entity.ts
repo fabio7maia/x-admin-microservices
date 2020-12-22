@@ -16,9 +16,9 @@ export class Translation extends BaseEntity {
 
   @ApiModelProperty()
   @Column({ length: 500, nullable: false })
-  en: string;
+  value: string;
 
   @ApiModelProperty()
-  @Column({ length: 500, nullable: false })
-  pt: string;
+  @Column({ length: 20, nullable: false })
+  language: string;
 }

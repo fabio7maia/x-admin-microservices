@@ -23,8 +23,6 @@ import { DeleteResult } from 'typeorm';
 import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 
-@UseGuards(AuthGuard())
-@ApiBearerAuth()
 @Controller('api/translations')
 @ApiUseTags('Translations')
 export class TranslationsController extends BaseController<Translation> {
@@ -52,6 +50,8 @@ export class TranslationsController extends BaseController<Translation> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   @ApiOperation({
     title: 'Get data for specific translation',
     operationId: 'getTranslation',
@@ -68,6 +68,8 @@ export class TranslationsController extends BaseController<Translation> {
     return super.getRecordById(id);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   @ApiOperation({
     title: 'Add new translation',
     operationId: 'addTranslation',
@@ -84,6 +86,8 @@ export class TranslationsController extends BaseController<Translation> {
     return super.createRecord(req, payload);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   @ApiOperation({
     title: 'Edit existing translation',
     operationId: 'editTranslation',
@@ -104,6 +108,8 @@ export class TranslationsController extends BaseController<Translation> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard())
   @ApiOperation({
     title: 'Delete existing translation',
     operationId: 'deleteTranslation',

@@ -6,6 +6,6 @@ export interface QuizQuestionsData extends QuizQuestion {
   answers: QuizQuestionAnswer[];
 }
 
-export interface QuizData extends Quiz {
+export class QuizData extends Quiz {
   questions: QuizQuestionsData[];
 }

@@ -77,7 +77,7 @@ export class QuizzesController extends BaseController<Quiz> {
   @ApiResponse({
     status: 200,
     description: 'Successful obtained specific quiz by code',
-    type: Quiz,
+    type: QuizData,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })

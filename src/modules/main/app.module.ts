@@ -21,6 +21,9 @@ import { FieldsModule } from '../fields';
 import { EntitiesRecordsModule } from '../entitiesRecords';
 import { UsersModule } from '../users';
 import { TranslationsModule } from '../translations';
+import { QuizzesModule } from '../quizzes';
+import { QuizzesQuestionsModule } from '../quizzesQuestions';
+import { QuizzesQuestionsAnswersModule } from '../quizzesQuestionsAnswers';
 
 @Module({
   imports: [
@@ -56,6 +59,9 @@ import { TranslationsModule } from '../translations';
     EntitiesRecordsModule,
     UsersModule,
     TranslationsModule,
+    QuizzesModule,
+    QuizzesQuestionsModule,
+    QuizzesQuestionsAnswersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,17 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { QuizEntity } from './quiz.entity';
+import { Quiz } from './quiz.entity';
 import { BaseService } from '../base/base.service';
 import { QuizzesQuestionsService } from '../quizzesQuestions';
 import { QuizzesQuestionsAnswersService } from '../quizzesQuestionsAnswers';
 import { QuizData } from './quiz.types';
 
 @Injectable()
-export class QuizzesService extends BaseService<QuizEntity> {
+export class QuizzesService extends BaseService<Quiz> {
   constructor(
-    @InjectRepository(QuizEntity)
-    private readonly quizRepository: Repository<QuizEntity>,
+    @InjectRepository(Quiz)
+    private readonly quizRepository: Repository<Quiz>,
     private readonly quizzesQuestionsService: QuizzesQuestionsService,
     private readonly quizzesQuestionsAnswersService: QuizzesQuestionsAnswersService,
   ) {
@@ -28,7 +28,7 @@ export class QuizzesService extends BaseService<QuizEntity> {
         quiz.id,
       );
 
-      (questions || []).forEach(async question => {
+      for (let question of questions || []) {
         const answers = await this.quizzesQuestionsAnswersService.getQuizQuestionsAnswers(
           question.id,
         );
@@ -37,7 +37,7 @@ export class QuizzesService extends BaseService<QuizEntity> {
           ...question,
           answers,
         });
-      });
+      }
 
       return quizData;
     }

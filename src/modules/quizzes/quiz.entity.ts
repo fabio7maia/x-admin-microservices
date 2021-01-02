@@ -5,7 +5,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 @Entity({
   name: 'quizzes',
 })
-export class QuizEntity extends BaseEntity {
+export class Quiz extends BaseEntity {
   @ApiModelProperty()
   @Column({ length: 50, nullable: false, unique: true })
   code: string;

@@ -19,7 +19,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { QuizzesQuestionsAnswersService } from './quizQuestionAnswer.service';
 import { BaseController } from '../base/base.controller';
-import { QuizQuestionAnswerEntity } from './quizQuestionAnswer.entity';
+import { QuizQuestionAnswer } from './quizQuestionAnswer.entity';
 import { DeleteResult } from 'typeorm';
 import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
@@ -29,7 +29,7 @@ import { Request } from 'express';
 @Controller('api/quizzes-questions-answers')
 @ApiUseTags('Quizzes Questions Answers')
 export class QuizzesQuestionsAnswersController extends BaseController<
-  QuizQuestionAnswerEntity
+  QuizQuestionAnswer
 > {
   constructor(
     private readonly quizzesQuestionsAnswersService: QuizzesQuestionsAnswersService,
@@ -45,7 +45,7 @@ export class QuizzesQuestionsAnswersController extends BaseController<
   @ApiResponse({
     status: 200,
     description: 'Successful obtained list of answers of quiz question',
-    type: QuizQuestionAnswerEntity,
+    type: QuizQuestionAnswer,
     isArray: true,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
@@ -53,7 +53,7 @@ export class QuizzesQuestionsAnswersController extends BaseController<
   async list(
     @Req() req: Request,
     order?: IFieldsOrder,
-  ): Promise<QuizQuestionAnswerEntity[]> {
+  ): Promise<QuizQuestionAnswer[]> {
     return super.getListOfRecords(req, order);
   }
 
@@ -65,11 +65,11 @@ export class QuizzesQuestionsAnswersController extends BaseController<
   @ApiResponse({
     status: 200,
     description: 'Successful obtained specific answer of quiz question',
-    type: QuizQuestionAnswerEntity,
+    type: QuizQuestionAnswer,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async get(@Param('id') id: string): Promise<QuizQuestionAnswerEntity> {
+  async get(@Param('id') id: string): Promise<QuizQuestionAnswer> {
     return super.getRecordById(id);
   }
 
@@ -81,14 +81,14 @@ export class QuizzesQuestionsAnswersController extends BaseController<
   @ApiResponse({
     status: 200,
     description: 'Successful added answer of quiz question',
-    type: QuizQuestionAnswerEntity,
+    type: QuizQuestionAnswer,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async create(
     @Req() req,
-    @Body() payload: QuizQuestionAnswerEntity,
-  ): Promise<QuizQuestionAnswerEntity> {
+    @Body() payload: QuizQuestionAnswer,
+  ): Promise<QuizQuestionAnswer> {
     return super.createRecord(req, payload);
   }
 
@@ -100,15 +100,15 @@ export class QuizzesQuestionsAnswersController extends BaseController<
   @ApiResponse({
     status: 200,
     description: 'Successful edited answer of quiz question',
-    type: QuizQuestionAnswerEntity,
+    type: QuizQuestionAnswer,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Req() req,
     @Param('id') id: string,
-    @Body() payload: QuizQuestionAnswerEntity,
-  ): Promise<QuizQuestionAnswerEntity> {
+    @Body() payload: QuizQuestionAnswer,
+  ): Promise<QuizQuestionAnswer> {
     return super.updateRecord(req, id, payload);
   }
 

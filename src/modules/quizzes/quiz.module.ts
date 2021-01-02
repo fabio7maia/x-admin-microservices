@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { QuizEntity } from './quiz.entity';
+import { Quiz } from './quiz.entity';
 import { QuizzesService } from './quiz.service';
 import { QuizzesController } from './quiz.controller';
 import { PassportModule } from '@nestjs/passport';
@@ -10,7 +10,7 @@ import { QuizzesQuestionsAnswersModule } from '../quizzesQuestionsAnswers';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    TypeOrmModule.forFeature([QuizEntity]),
+    TypeOrmModule.forFeature([Quiz]),
     QuizzesQuestionsModule,
     QuizzesQuestionsAnswersModule,
   ],

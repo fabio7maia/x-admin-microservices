@@ -1,15 +1,15 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../base/base.entity';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { QuizQuestionEntity } from '../quizzesQuestions';
+import { QuizQuestion } from '../quizzesQuestions';
 
 @Entity({
   name: 'quizzes_questions_answers',
 })
-export class QuizQuestionAnswerEntity extends BaseEntity {
+export class QuizQuestionAnswer extends BaseEntity {
   @ApiModelProperty()
   @ManyToOne(
-    () => QuizQuestionEntity,
+    () => QuizQuestion,
     quizQuestion => quizQuestion.id,
     {
       cascade: ['insert', 'update'],

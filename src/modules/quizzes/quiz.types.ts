@@ -1,11 +1,11 @@
-import { QuizQuestionEntity } from '../quizzesQuestions';
-import { QuizQuestionAnswerEntity } from '../quizzesQuestionsAnswers';
-import { QuizEntity } from './quiz.entity';
+import { QuizQuestion } from '../quizzesQuestions';
+import { QuizQuestionAnswer } from '../quizzesQuestionsAnswers';
+import { Quiz } from './quiz.entity';
 
-export interface QuizQuestionsData extends QuizQuestionEntity {
-  answers: QuizQuestionAnswerEntity[];
+export interface QuizQuestionsData extends QuizQuestion {
+  answers: QuizQuestionAnswer[];
 }
 
-export interface QuizData extends QuizEntity {
+export interface QuizData extends Quiz {
   questions: QuizQuestionsData[];
 }

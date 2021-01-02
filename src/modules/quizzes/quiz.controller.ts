@@ -23,6 +23,7 @@ import { Quiz } from './quiz.entity';
 import { DeleteResult } from 'typeorm';
 import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
+import { QuizData } from './quiz.types';
 
 @Controller('api/quizzes')
 @ApiUseTags('Quizzes')
@@ -80,7 +81,7 @@ export class QuizzesController extends BaseController<Quiz> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getByCode(@Param('code') code: string): Promise<Quiz> {
+  async getByCode(@Param('code') code: string): Promise<QuizData> {
     return this.quizzesService.getQuiz(code);
   }
 

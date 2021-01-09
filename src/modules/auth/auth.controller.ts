@@ -6,6 +6,7 @@ import {
   Get,
   Request,
   Req,
+  UnauthorizedException,
 } from '@nestjs/common';
 import {
   ApiResponse,
@@ -16,6 +17,8 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './';
 import {
+  AuthLoginExternalProviderServiceInput,
+  AuthLoginExternalProviderServiceOutput,
   AuthLoginServiceInput,
   AuthLoginServiceOutput,
   AuthRegisterServiceInput,
@@ -28,10 +31,7 @@ import { AuthMeServiceOutput } from './types/me';
 @Controller('api/auth')
 @ApiUseTags('Authentication')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly usersService: UsersService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({
     title: 'Login existing user',
@@ -53,6 +53,31 @@ export class AuthController {
   }
 
   @ApiOperation({
+    title: 'Login or register existing user from external provider',
+    operationId: 'loginFromExternalProvider',
+  })
+  @Post('loginFromExternalProvider')
+  @ApiResponse({
+    status: 200,
+    description:
+      'Successful login or register existing user from external provider',
+    type: AuthLoginExternalProviderServiceOutput,
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async loginFromExternalProvider(
+    @Req() req,
+    @Body() payload: AuthLoginExternalProviderServiceInput,
+  ): Promise<AuthLoginExternalProviderServiceOutput> {
+    const user = await this.authService.treatLoginFromExternalProvider(
+      BaseHelper.getCurrentUserId(req),
+      payload,
+    );
+
+    return await this.authService.createToken(user);
+  }
+
+  @ApiOperation({
     title: 'Register new user',
     operationId: 'register',
   })
@@ -68,7 +93,7 @@ export class AuthController {
     @Req() req,
     @Body() payload: AuthRegisterServiceInput,
   ): Promise<AuthRegisterServiceOutput> {
-    const user = await this.usersService.create(
+    const user = await this.authService.register(
       BaseHelper.getCurrentUserId(req),
       payload,
     );

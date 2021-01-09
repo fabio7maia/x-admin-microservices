@@ -1,4 +1,4 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
 export class UserServiceInput {
@@ -9,14 +9,23 @@ export class UserServiceInput {
   email: string;
 
   @ApiModelProperty()
-  firstName?: string;
+  firstName: string;
 
   @ApiModelProperty()
-  lastName?: string;
+  lastName: string;
 
-  @ApiModelProperty({
-    required: true,
-  })
-  @IsNotEmpty()
-  password: string;
+  @ApiModelPropertyOptional()
+  password?: string;
+
+  @ApiModelPropertyOptional()
+  imageUrl?: string;
+
+  @ApiModelPropertyOptional()
+  providerId?: string;
+
+  @ApiModelPropertyOptional()
+  app?: string;
+
+  @ApiModelPropertyOptional()
+  active?: boolean;
 }

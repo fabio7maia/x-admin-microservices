@@ -7,7 +7,6 @@ import { User } from './user.entity';
 import { ConfigurationsDbService } from '../configurations';
 import { UserServiceInput } from './types';
 import { BaseService } from '../base/base.service';
-import { basename } from 'path';
 
 @Injectable()
 export class UsersService extends BaseService<User> {
@@ -33,6 +32,12 @@ export class UsersService extends BaseService<User> {
     return user && user.length > 0 ? user[0] : null;
   }
 
+  async getByEmailAndProviderId(email: string, providerId: string) {
+    const user = await this.userRepository.find({ email, providerId });
+
+    return user && user.length > 0 ? user[0] : null;
+  }
+
   async create(userId: string, payload: UserServiceInput) {
     let allowCreateUsers = false;
 
@@ -40,9 +45,17 @@ export class UsersService extends BaseService<User> {
       'allowRegisterUsers',
     );
 
-    allowCreateUsers = allowCreateUsersConfig.length
-      ? allowCreateUsersConfig[0].value === 'true'
-      : allowCreateUsers;
+    const allowCreateUsersConfigApp =
+      payload.app &&
+      (await this.configurationsDbService.getByKey(
+        `allowRegisterUsers.${payload.app}`,
+      ));
+
+    if (allowCreateUsersConfigApp && allowCreateUsersConfigApp.length) {
+      allowCreateUsers = allowCreateUsersConfigApp[0].value === 'true';
+    } else if (allowCreateUsersConfig && allowCreateUsersConfig.length) {
+      allowCreateUsers = allowCreateUsersConfig[0].value === 'true';
+    }
 
     if (!allowCreateUsers) {
       throw new NotAcceptableException('Register new users is not allowed');
@@ -56,9 +69,7 @@ export class UsersService extends BaseService<User> {
       );
     }
 
-    payload.password = crypto
-      .createHmac('sha256', payload.password)
-      .digest('hex');
+    console.log('UsersService > create', { userId, payload });
 
     return super.create(userId, payload);
   }

@@ -1,14 +1,8 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
-import { User } from '../../users';
+import { IsNotEmpty, MinLength } from 'class-validator';
+import { BaseAuthServiceInput, BaseAuthServiceOutput } from './base';
 
-export class AuthRegisterServiceInput {
-  @ApiModelProperty({
-    required: true,
-  })
-  @IsEmail()
-  email: string;
-
+export class AuthRegisterServiceInput extends BaseAuthServiceInput {
   @ApiModelProperty({
     required: true,
   })
@@ -29,11 +23,4 @@ export class AuthRegisterServiceInput {
   password: string;
 }
 
-export class AuthRegisterServiceOutput {
-  @ApiModelProperty()
-  expiresIn: string;
-  @ApiModelProperty()
-  accessToken: string;
-  @ApiModelProperty()
-  user: User;
-}
+export class AuthRegisterServiceOutput extends BaseAuthServiceOutput {}

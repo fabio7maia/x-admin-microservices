@@ -1,6 +1,6 @@
 import {
-  BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { BaseHelper } from 'modules/base';
@@ -17,9 +17,7 @@ import {
   QuizEngineGetQuizGameDataOutput,
   QuizEngineGetRandomQuestionsInput,
   QuizEngineGetRandomQuestionsOutput,
-  QuizEngineBaseQuestionsOutput,
   QuizEngineDoAnswerOutput,
-  QuizEngineGameUserData,
   QuizEngineDoAnswerServiceInput,
   QuizEngineCachedGameUserData,
 } from './engine.types';
@@ -47,7 +45,7 @@ export class QuizzesEngineService {
   private async getRandomQuestions(
     input: QuizEngineGetRandomQuestionsInput,
   ): Promise<QuizEngineGetRandomQuestionsOutput> {
-    const { quizCode = 'default' } = input;
+    const { quizCode } = input;
 
     const questionsResult = await getRepository(QuizQuestion)
       .createQueryBuilder('question')
@@ -101,9 +99,20 @@ export class QuizzesEngineService {
       gameData.answers = userData.answers;
       gameData.correctAnswers = userData.correctAnswers;
       gameData.points = userData.points;
-
-      userGameGuid = authenticatedUserId;
+    } else if (isAuthenticatedUser) {
+      await this.quizzesUsersDataService.create(authenticatedUserId, {
+        userId: authenticatedUserId,
+        answers: 0,
+        correctAnswers: 0,
+        points: 0,
+      });
     }
+
+    // console.log('getQuizGameData', {
+    //   gameData,
+    //   userData,
+    //   isAuthenticatedUser,
+    // });
 
     const questionsResult = await this.getRandomQuestions(input);
 
@@ -129,7 +138,7 @@ export class QuizzesEngineService {
     const {
       authenticatedUserId,
       userGameGuid,
-      quizCode = 'default',
+      quizCode,
       answerId,
       questionId,
     } = input;
@@ -143,8 +152,8 @@ export class QuizzesEngineService {
       : undefined;
     const gameData = this.getCachedUserData(userGameGuid);
 
-    if (gameData.currentQuestionId !== questionId) {
-      throw new BadRequestException('Invalid game state');
+    if (!gameData || gameData.currentQuestionId !== questionId) {
+      throw new InternalServerErrorException('Invalid game state');
     }
 
     const answerResult = await getRepository(QuizQuestionAnswer)
@@ -167,7 +176,12 @@ export class QuizzesEngineService {
       gameData.points = userData.points;
     }
 
-    // console.log('doAnswers', { answerResult, gameData, userData });
+    // console.log('doAnswers', {
+    //   answerResult,
+    //   gameData,
+    //   userData,
+    //   isAuthenticatedUser,
+    // });
 
     gameData.answers++;
     if (answerResult?.correctAnswer) {

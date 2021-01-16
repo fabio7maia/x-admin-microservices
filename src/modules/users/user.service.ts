@@ -74,10 +74,20 @@ export class UsersService extends BaseService<User> {
     return super.create(userId, payload);
   }
 
-  async update(userId: string, id: string, payload: UserServiceInput) {
-    payload.password = crypto
-      .createHmac('sha256', payload.password)
-      .digest('hex');
+  async update(
+    userId: string,
+    id: string,
+    payload: UserServiceInput,
+    ignorePasswordField?: boolean,
+  ) {
+    ignorePasswordField =
+      ignorePasswordField === undefined ? false : ignorePasswordField;
+
+    if (!ignorePasswordField) {
+      payload.password = crypto
+        .createHmac('sha256', payload.password)
+        .digest('hex');
+    }
 
     return super.update(userId, id, payload);
   }

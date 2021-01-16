@@ -22,6 +22,8 @@ import { Quiz } from './quiz.entity';
 import { DeleteResult } from 'typeorm';
 import { Request } from 'express';
 
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('api/quiz-game/quizzes')
 @ApiUseTags('Quizzes - Quiz Game')
 export class QuizzesController extends BaseController<Quiz> {
@@ -33,8 +35,6 @@ export class QuizzesController extends BaseController<Quiz> {
     title: 'Get list of quizzes',
     operationId: 'listQuizzes',
   })
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -44,7 +44,7 @@ export class QuizzesController extends BaseController<Quiz> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async list(@Req() req: Request, order?: IFieldsOrder): Promise<Quiz[]> {
+  async list(@Req() req, order?: IFieldsOrder): Promise<Quiz[]> {
     return super.getListOfRecords(req, order);
   }
 
@@ -52,8 +52,6 @@ export class QuizzesController extends BaseController<Quiz> {
     title: 'Get specific quiz',
     operationId: 'getQuiz',
   })
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -70,8 +68,6 @@ export class QuizzesController extends BaseController<Quiz> {
     title: 'Add quiz',
     operationId: 'addQuiz',
   })
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -88,8 +84,6 @@ export class QuizzesController extends BaseController<Quiz> {
     title: 'Edit quiz',
     operationId: 'editQuiz',
   })
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -110,8 +104,6 @@ export class QuizzesController extends BaseController<Quiz> {
     title: 'Delete quiz',
     operationId: 'deleteQuiz',
   })
-  @UseGuards(AuthGuard())
-  @ApiBearerAuth()
   @Delete('/:id')
   @ApiResponse({
     status: 200,

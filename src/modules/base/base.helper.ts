@@ -1,4 +1,10 @@
 export abstract class BaseHelper {
+  static readonly isAuthenticatedUser = (req: {
+    user?: { id: string };
+  }): boolean => {
+    return req.user !== undefined;
+  };
+
   static readonly getCurrentUserId = (req: {
     user?: { id: string };
   }): string => {

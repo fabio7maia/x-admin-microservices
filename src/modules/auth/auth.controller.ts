@@ -24,7 +24,6 @@ import {
   AuthRegisterServiceInput,
   AuthRegisterServiceOutput,
 } from './types';
-import { UsersService } from './../users';
 import { BaseHelper } from '../base/base.helper';
 import { AuthMeServiceOutput } from './types/me';
 

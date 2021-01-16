@@ -47,17 +47,27 @@ export class AuthService {
     userId: string,
     payload: AuthLoginExternalProviderServiceInput,
   ): Promise<User> {
-    let user = await this.usersService.getByEmailAndProviderId(
-      payload.email,
-      payload.providerId,
-    );
+    const { email, providerId } = payload;
+    let user = await this.usersService.getByEmail(email);
 
     if (!user) {
       user = await this.usersService.create(userId, {
         ...payload,
         active: true,
       });
+    } else {
+      user = await this.usersService.update(
+        user.id,
+        user.id,
+        {
+          ...user,
+          providerId,
+        },
+        true,
+      );
     }
+
+    console.log('user >>', { user });
 
     if (!user.active) {
       throw new InternalServerErrorException('User is inactve.');

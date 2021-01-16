@@ -1,5 +1,18 @@
-import { Controller, Get, Req, Query, Post, Body } from '@nestjs/common';
-import { ApiResponse, ApiUseTags, ApiOperation } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Req,
+  Query,
+  Post,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiResponse,
+  ApiUseTags,
+  ApiOperation,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { QuizzesEngineService } from './engine.service';
 import {
   QuizEngineDoAnswerInput,
@@ -7,7 +20,10 @@ import {
   QuizEngineGetQuizGameDataOutput,
 } from './engine.types';
 import { BaseHelper } from '../../base';
+import { JwtAuthGuardNoException } from '../../auth';
 
+@UseGuards(JwtAuthGuardNoException)
+@ApiBearerAuth()
 @Controller('api/quiz-game/engine')
 @ApiUseTags('Engine - Quiz Game')
 export class QuizzesEngineController {
@@ -31,7 +47,11 @@ export class QuizzesEngineController {
   ): Promise<QuizEngineGetQuizGameDataOutput> {
     const authenticatedUserId = BaseHelper.getCurrentUserId(req);
 
-    // console.log('getQuizGame', { authenticatedUserId, quizCode });
+    // console.log('getQuizGame', {
+    //   authenticatedUserId,
+    //   quizCode,
+    //   user: req.user,
+    // });
 
     return this.quizzesEngineService.getQuizGameData({
       quizCode,
@@ -43,7 +63,7 @@ export class QuizzesEngineController {
     title: 'Answer specific question of quiz game',
     operationId: 'doAnswer',
   })
-  @Post()
+  @Post('/')
   @ApiResponse({
     status: 200,
     description: 'Successful answer specific question of quiz game',
@@ -57,7 +77,11 @@ export class QuizzesEngineController {
   ): Promise<QuizEngineDoAnswerOutput> {
     const authenticatedUserId = BaseHelper.getCurrentUserId(req);
 
-    // console.log('doAnswer', { ...payload, authenticatedUserId });
+    // console.log('doAnswer', {
+    //   authenticatedUserId,
+    //   payload,
+    //   user: req.user,
+    // });
 
     return this.quizzesEngineService.doAnswer({
       ...payload,

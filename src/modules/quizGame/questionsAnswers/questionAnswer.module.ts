@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { QuizQuestionAnswer } from './quizQuestionAnswer.entity';
-import { QuizzesQuestionsAnswersService } from './quizQuestionAnswer.service';
-import { QuizzesQuestionsAnswersController } from './quizQuestionAnswer.controller';
+import { QuizQuestionAnswer } from './questionAnswer.entity';
+import { QuizzesQuestionsAnswersService } from './questionAnswer.service';
+import { QuizzesQuestionsAnswersController } from './questionAnswer.controller';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({

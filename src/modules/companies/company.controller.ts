@@ -3,7 +3,7 @@ import {
   UseGuards,
   Get,
   Req,
-  Param,
+  Query,
   Post,
   Body,
   Put,
@@ -61,7 +61,7 @@ export class CompaniesController extends BaseController<Company> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async get(@Param('id') id: string): Promise<Company> {
+  async get(@Query('id') id: string): Promise<Company> {
     return super.getRecordById(id);
   }
 
@@ -95,7 +95,7 @@ export class CompaniesController extends BaseController<Company> {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Req() req,
-    @Param('id') id: string,
+    @Query('id') id: string,
     @Body() payload: Company,
   ): Promise<Company> {
     return super.updateRecord(req, id, payload);
@@ -113,7 +113,7 @@ export class CompaniesController extends BaseController<Company> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async delete(@Param('id') id: string): Promise<DeleteResult> {
+  async delete(@Query('id') id: string): Promise<DeleteResult> {
     return super.deleteRecord(id);
   }
 }

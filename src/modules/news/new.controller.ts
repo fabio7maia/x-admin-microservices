@@ -8,7 +8,6 @@ import {
   Delete,
   Query,
   Req,
-  Param,
 } from '@nestjs/common';
 import { ApiResponse, ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
@@ -47,7 +46,7 @@ export class NewsController extends BaseController<NewEntity> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async get(@Param('id') id: string): Promise<NewEntity> {
+  async get(@Query('id') id: string): Promise<NewEntity> {
     return super.getRecordById(id);
   }
 
@@ -77,7 +76,7 @@ export class NewsController extends BaseController<NewEntity> {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Req() req,
-    @Param('id') id: string,
+    @Query('id') id: string,
     @Body() payload: NewEntity,
   ): Promise<NewEntity> {
     return super.updateRecord(req, id, payload);
@@ -93,7 +92,7 @@ export class NewsController extends BaseController<NewEntity> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async delete(@Param('id') id: string): Promise<DeleteResult> {
+  async delete(@Query('id') id: string): Promise<DeleteResult> {
     return super.deleteRecord(id);
   }
 }

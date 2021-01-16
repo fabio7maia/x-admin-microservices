@@ -1,44 +1,47 @@
 import {
   Controller,
-  UseGuards,
-  Query,
-  Delete,
   Body,
-  Req,
-  Put,
   Post,
+  UseGuards,
   Get,
+  Put,
+  Delete,
+  Query,
+  Req,
 } from '@nestjs/common';
 import {
-  ApiUseTags,
   ApiResponse,
+  ApiUseTags,
   ApiBearerAuth,
   ApiOperation,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { TranslationService } from './translation.service';
-import { BaseController } from '../base/base.controller';
-import { Translation } from './translation.entity';
+import { QuizzesQuestionsService } from './question.service';
+import { BaseController, IFieldsOrder } from '../../base';
+import { QuizQuestion } from './question.entity';
 import { DeleteResult } from 'typeorm';
-import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 
-@Controller('api/translations')
-@ApiUseTags('Translations')
-export class TranslationsController extends BaseController<Translation> {
-  constructor(private readonly translationService: TranslationService) {
-    super(translationService);
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
+@Controller('api/quiz-game/questions')
+@ApiUseTags('Questions - Quiz Game')
+export class QuizzesQuestionsController extends BaseController<QuizQuestion> {
+  constructor(
+    private readonly quizzesQuestionsService: QuizzesQuestionsService,
+  ) {
+    super(quizzesQuestionsService);
   }
 
   @ApiOperation({
-    title: 'Get list of translations',
-    operationId: 'listTranslations',
+    title: 'List of quiz questions',
+    operationId: 'listQuizQuestions',
   })
   @Get('/')
   @ApiResponse({
     status: 200,
-    description: 'Successful obtained list of translations',
-    type: Translation,
+    description: 'Successful obtained list of quiz questions',
+    type: QuizQuestion,
     isArray: true,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
@@ -46,78 +49,73 @@ export class TranslationsController extends BaseController<Translation> {
   async list(
     @Req() req: Request,
     order?: IFieldsOrder,
-  ): Promise<Translation[]> {
+  ): Promise<QuizQuestion[]> {
     return super.getListOfRecords(req, order);
   }
 
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   @ApiOperation({
-    title: 'Get data for specific translation',
-    operationId: 'getTranslation',
+    title: 'Get specific quiz question',
+    operationId: 'getQuizQuestion',
   })
   @Get('/:id')
   @ApiResponse({
     status: 200,
-    description: 'Successful obtained specific translation',
-    type: Translation,
+    description: 'Successful obtained specific quiz question',
+    type: QuizQuestion,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async get(@Query('id') id: string): Promise<Translation> {
+  async get(@Query('id') id: string): Promise<QuizQuestion> {
     return super.getRecordById(id);
   }
 
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   @ApiOperation({
-    title: 'Add new translation',
-    operationId: 'addTranslation',
+    title: 'Add quiz question',
+    operationId: 'addQuizQuestion',
   })
   @Post('/')
   @ApiResponse({
     status: 200,
-    description: 'Successful added translation',
-    type: Translation,
+    description: 'Successful added quiz question',
+    type: QuizQuestion,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async create(@Req() req, @Body() payload: Translation): Promise<Translation> {
+  async create(
+    @Req() req,
+    @Body() payload: QuizQuestion,
+  ): Promise<QuizQuestion> {
     return super.createRecord(req, payload);
   }
 
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   @ApiOperation({
-    title: 'Edit existing translation',
-    operationId: 'editTranslation',
+    title: 'Edit quiz question',
+    operationId: 'editQuizQuestion',
   })
   @Put('/:id')
   @ApiResponse({
     status: 200,
-    description: 'Successful edited configuration',
-    type: Translation,
+    description: 'Successful edited quiz question',
+    type: QuizQuestion,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Req() req,
     @Query('id') id: string,
-    @Body() payload: Translation,
-  ): Promise<Translation> {
+    @Body() payload: QuizQuestion,
+  ): Promise<QuizQuestion> {
     return super.updateRecord(req, id, payload);
   }
 
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard())
   @ApiOperation({
-    title: 'Delete existing translation',
-    operationId: 'deleteTranslation',
+    title: 'Delete quiz question',
+    operationId: 'deleteQuizQuestion',
   })
   @Delete('/:id')
   @ApiResponse({
     status: 200,
-    description: 'Successful deleted translation',
+    description: 'Successful deleted quiz question',
     type: DeleteResult,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })

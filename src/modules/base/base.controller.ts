@@ -1,4 +1,4 @@
-import { Param, Req, Body } from '@nestjs/common';
+import { Req, Body, Query } from '@nestjs/common';
 import { Like, DeleteResult } from 'typeorm';
 import { IBaseService } from './base.service';
 import { BaseEntity } from './base.entity';
@@ -41,7 +41,7 @@ export abstract class BaseController<T extends BaseEntity> {
     return await this.service.all({ where, order });
   }
 
-  async getRecordById(@Param('id') id: string): Promise<T> {
+  async getRecordById(@Query('id') id: string): Promise<T> {
     return await this.service.get(id);
   }
 
@@ -51,7 +51,7 @@ export abstract class BaseController<T extends BaseEntity> {
 
   async updateRecord(
     @Req() req,
-    @Param('id') id: string,
+    @Query('id') id: string,
     @Body() payload: T,
   ): Promise<T> {
     return await this.service.update(
@@ -61,7 +61,7 @@ export abstract class BaseController<T extends BaseEntity> {
     );
   }
 
-  async deleteRecord(@Param('id') id: string): Promise<DeleteResult> {
+  async deleteRecord(@Query('id') id: string): Promise<DeleteResult> {
     return await this.service.delete(id);
   }
 }

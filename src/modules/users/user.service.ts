@@ -69,7 +69,7 @@ export class UsersService extends BaseService<User> {
       );
     }
 
-    console.log('UsersService > create', { userId, payload });
+    // console.log('UsersService > create', { userId, payload });
 
     return super.create(userId, payload);
   }

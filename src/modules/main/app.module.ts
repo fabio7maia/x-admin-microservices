@@ -21,9 +21,7 @@ import { FieldsModule } from '../fields';
 import { EntitiesRecordsModule } from '../entitiesRecords';
 import { UsersModule } from '../users';
 import { TranslationsModule } from '../translations';
-import { QuizzesModule } from '../quizzes';
-import { QuizzesQuestionsModule } from '../quizzesQuestions';
-import { QuizzesQuestionsAnswersModule } from '../quizzesQuestionsAnswers';
+import { QuizGameModule } from '../quizGame';
 
 @Module({
   imports: [
@@ -59,9 +57,7 @@ import { QuizzesQuestionsAnswersModule } from '../quizzesQuestionsAnswers';
     EntitiesRecordsModule,
     UsersModule,
     TranslationsModule,
-    QuizzesModule,
-    QuizzesQuestionsModule,
-    QuizzesQuestionsAnswersModule,
+    QuizGameModule,
   ],
   controllers: [AppController],
   providers: [AppService],

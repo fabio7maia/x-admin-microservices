@@ -8,7 +8,6 @@ import {
   Delete,
   Query,
   Req,
-  Param,
 } from '@nestjs/common';
 import {
   ApiResponse,
@@ -18,15 +17,13 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { QuizzesService } from './quiz.service';
-import { BaseController } from '../base/base.controller';
+import { BaseController, IFieldsOrder } from '../../base';
 import { Quiz } from './quiz.entity';
 import { DeleteResult } from 'typeorm';
-import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
-import { QuizData } from './quiz.types';
 
-@Controller('api/quizzes')
-@ApiUseTags('Quizzes')
+@Controller('api/quiz-game/quizzes')
+@ApiUseTags('Quizzes - Quiz Game')
 export class QuizzesController extends BaseController<Quiz> {
   constructor(private readonly quizzesService: QuizzesService) {
     super(quizzesService);
@@ -65,24 +62,8 @@ export class QuizzesController extends BaseController<Quiz> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async get(@Param('id') id: string): Promise<Quiz> {
+  async get(@Query('id') id: string): Promise<Quiz> {
     return super.getRecordById(id);
-  }
-
-  @ApiOperation({
-    title: 'Get specific quiz by code',
-    operationId: 'getQuizByCode',
-  })
-  @Get('/code/:code')
-  @ApiResponse({
-    status: 200,
-    description: 'Successful obtained specific quiz by code',
-    type: QuizData,
-  })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getByCode(@Param('code') code: string): Promise<QuizData> {
-    return this.quizzesService.getQuiz(code);
   }
 
   @ApiOperation({
@@ -119,7 +100,7 @@ export class QuizzesController extends BaseController<Quiz> {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Req() req,
-    @Param('id') id: string,
+    @Query('id') id: string,
     @Body() payload: Quiz,
   ): Promise<Quiz> {
     return super.updateRecord(req, id, payload);
@@ -139,7 +120,7 @@ export class QuizzesController extends BaseController<Quiz> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async delete(@Param('id') id: string): Promise<DeleteResult> {
+  async delete(@Query('id') id: string): Promise<DeleteResult> {
     return super.deleteRecord(id);
   }
 }

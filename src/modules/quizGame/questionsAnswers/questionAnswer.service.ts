@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-import { QuizQuestionAnswer } from './quizQuestionAnswer.entity';
-import { BaseService } from '../base/base.service';
+import { BaseService } from '../../base';
+import { QuizQuestionAnswer } from './questionAnswer.entity';
 
 @Injectable()
 export class QuizzesQuestionsAnswersService extends BaseService<

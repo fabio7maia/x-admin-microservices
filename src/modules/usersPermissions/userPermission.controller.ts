@@ -5,7 +5,7 @@ import {
   Req,
   Body,
   Post,
-  Param,
+  Query,
   Put,
   Delete,
 } from '@nestjs/common';
@@ -53,7 +53,7 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async get(@Param('id') id: string): Promise<UserPermission> {
+  async get(@Query('id') id: string): Promise<UserPermission> {
     return super.getRecordById(id);
   }
 
@@ -82,7 +82,7 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Req() req,
-    @Param('id') id: string,
+    @Query('id') id: string,
     @Body() payload: UserPermission,
   ): Promise<UserPermission> {
     return super.updateRecord(req, id, payload);
@@ -96,7 +96,7 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async delete(@Param('id') id: string): Promise<DeleteResult> {
+  async delete(@Query('id') id: string): Promise<DeleteResult> {
     return super.deleteRecord(id);
   }
 }

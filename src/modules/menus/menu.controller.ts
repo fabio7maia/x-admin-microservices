@@ -3,7 +3,7 @@ import {
   UseGuards,
   Get,
   Req,
-  Param,
+  Query,
   Post,
   Body,
   Put,
@@ -51,7 +51,7 @@ export class MenusController extends BaseController<Menu> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async get(@Param('id') id: string): Promise<Menu> {
+  async get(@Query('id') id: string): Promise<Menu> {
     return super.getRecordById(id);
   }
 
@@ -77,7 +77,7 @@ export class MenusController extends BaseController<Menu> {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Req() req,
-    @Param('id') id: string,
+    @Query('id') id: string,
     @Body() payload: Menu,
   ): Promise<Menu> {
     return super.updateRecord(req, id, payload);
@@ -91,7 +91,7 @@ export class MenusController extends BaseController<Menu> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async delete(@Param('id') id: string): Promise<DeleteResult> {
+  async delete(@Query('id') id: string): Promise<DeleteResult> {
     return super.deleteRecord(id);
   }
 }

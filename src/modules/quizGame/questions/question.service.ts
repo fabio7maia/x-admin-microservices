@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
-import { QuizQuestion } from './quizQuestion.entity';
-import { BaseService } from '../base/base.service';
+import { BaseService } from '../../base';
+import { QuizQuestion } from './question.entity';
 
 @Injectable()
 export class QuizzesQuestionsService extends BaseService<QuizQuestion> {
@@ -12,9 +11,5 @@ export class QuizzesQuestionsService extends BaseService<QuizQuestion> {
     private readonly quizQuestionRepository: Repository<QuizQuestion>,
   ) {
     super(quizQuestionRepository);
-  }
-
-  async getQuizQuestions(quizId: string) {
-    return this.quizQuestionRepository.find({ quizId });
   }
 }

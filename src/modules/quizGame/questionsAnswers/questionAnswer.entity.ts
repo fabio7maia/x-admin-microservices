@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { BaseEntity } from '../base/base.entity';
+import { BaseEntity } from '../../base';
 import { ApiModelProperty } from '@nestjs/swagger';
-import { QuizQuestion } from '../quizzesQuestions';
+import { QuizQuestion } from '../questions';
 
 @Entity({
   name: 'quizzes_questions_answers',

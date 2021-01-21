@@ -43,9 +43,11 @@ export class QuizEngineBaseOutput {
   question: QuizEngineBaseQuestionsOutput;
 }
 
-export class QuizEngineGetRandomQuestionsInput extends QuizEngineBaseInput {}
+export class QuizEngineGetRandomQuestionInput extends QuizEngineBaseInput {
+  lastQuestionId?: string;
+}
 
-export class QuizEngineGetRandomQuestionsOutput extends QuizEngineBaseOutput {}
+export class QuizEngineGetRandomQuestionOutput extends QuizEngineBaseOutput {}
 
 export class QuizEngineGetQuizGameDataInput extends QuizEngineBaseInput {}
 

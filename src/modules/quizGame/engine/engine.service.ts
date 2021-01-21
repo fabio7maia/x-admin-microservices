@@ -15,8 +15,8 @@ import { QuizzesUsersDataService } from '../usersData';
 import {
   QuizEngineGetQuizGameDataInput,
   QuizEngineGetQuizGameDataOutput,
-  QuizEngineGetRandomQuestionsInput,
-  QuizEngineGetRandomQuestionsOutput,
+  QuizEngineGetRandomQuestionInput,
+  QuizEngineGetRandomQuestionOutput,
   QuizEngineDoAnswerOutput,
   QuizEngineDoAnswerServiceInput,
   QuizEngineCachedGameUserData,
@@ -42,15 +42,19 @@ export class QuizzesEngineService {
     this.cachedGameUserData[userGameGuid] = gameUserData;
   }
 
-  private async getRandomQuestions(
-    input: QuizEngineGetRandomQuestionsInput,
-  ): Promise<QuizEngineGetRandomQuestionsOutput> {
-    const { quizCode } = input;
+  private async getRandomQuestion(
+    input: QuizEngineGetRandomQuestionInput,
+  ): Promise<QuizEngineGetRandomQuestionOutput> {
+    const { quizCode, lastQuestionId } = input;
 
+    // TODO: save in cache
     const questionsResult = await getRepository(QuizQuestion)
       .createQueryBuilder('question')
       .innerJoinAndSelect(Quiz, 'quiz', 'quiz.id = question.quizId')
-      .where('quiz.code = :quizCode', { quizCode })
+      .where('quiz.code = :quizCode and question.id != :questionId', {
+        quizCode,
+        questionId: lastQuestionId || '',
+      })
       .getMany();
 
     if (questionsResult.length === 0) {
@@ -113,16 +117,16 @@ export class QuizzesEngineService {
     //   isAuthenticatedUser,
     // });
 
-    const questionsResult = await this.getRandomQuestions(input);
+    const questionResult = await this.getRandomQuestion(input);
 
     this.setCachedUserData(userGameGuid, {
       ...gameData,
-      currentQuestionId: questionsResult.question.id,
+      currentQuestionId: questionResult.question.id,
     });
 
     return {
       userGameGuid,
-      question: questionsResult.question,
+      question: questionResult.question,
       gameData: {
         answers: gameData.answers,
         correctAnswers: gameData.correctAnswers,
@@ -195,16 +199,19 @@ export class QuizzesEngineService {
       });
     }
 
-    const questionsResult = await this.getRandomQuestions(input);
+    const questionResult = await this.getRandomQuestion({
+      ...input,
+      lastQuestionId: questionId,
+    });
 
     this.setCachedUserData(userGameGuid, {
       ...gameData,
-      currentQuestionId: questionsResult.question.id,
+      currentQuestionId: questionResult.question.id,
     });
 
     // console.log('doAnswers', {
     //   userGameGuid,
-    //   question: questionsResult.question,
+    //   question: questionResult.question,
     //   gameData: {
     //     answers: gameData.answers,
     //     correctAnswers: gameData.correctAnswers,
@@ -215,7 +222,7 @@ export class QuizzesEngineService {
 
     return {
       userGameGuid,
-      question: questionsResult.question,
+      question: questionResult.question,
       gameData: {
         answers: gameData.answers,
         correctAnswers: gameData.correctAnswers,

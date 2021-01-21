@@ -14,9 +14,6 @@ export class QuizEngineBaseQuestionAnswerOutput {
 
   @ApiModelProperty()
   answer: string;
-
-  @ApiModelProperty()
-  correctAnswer: boolean;
 }
 
 export class QuizEngineBaseQuestionsOutput {
@@ -91,6 +88,9 @@ export class QuizEngineDoAnswerOutput extends QuizEngineBaseOutput {
 
   @ApiModelProperty({ type: QuizEngineGameUserData })
   gameData: QuizEngineGameUserData;
+
+  @ApiModelProperty()
+  isCorrectAnswer: boolean;
 }
 
 export type QuizEngineCachedGameUserData = QuizEngineGameUserData & {

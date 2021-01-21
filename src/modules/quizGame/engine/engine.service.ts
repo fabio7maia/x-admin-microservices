@@ -72,7 +72,6 @@ export class QuizzesEngineService {
         id: question.id,
         answers: answers.map(x => ({
           answer: x.answer,
-          correctAnswer: x.correctAnswer,
           id: x.id,
         })),
         question: question.question,
@@ -203,6 +202,17 @@ export class QuizzesEngineService {
       currentQuestionId: questionsResult.question.id,
     });
 
+    // console.log('doAnswers', {
+    //   userGameGuid,
+    //   question: questionsResult.question,
+    //   gameData: {
+    //     answers: gameData.answers,
+    //     correctAnswers: gameData.correctAnswers,
+    //     points: gameData.points,
+    //   },
+    //   isCorrectAnswer: answerResult?.correctAnswer,
+    // });
+
     return {
       userGameGuid,
       question: questionsResult.question,
@@ -211,6 +221,7 @@ export class QuizzesEngineService {
         correctAnswers: gameData.correctAnswers,
         points: gameData.points,
       },
+      isCorrectAnswer: answerResult?.correctAnswer,
     };
   }
 }

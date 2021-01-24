@@ -1,22 +1,19 @@
-import * as dotenv from 'dotenv';
-import * as fs from 'fs';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Configuration } from './configuration.entity';
+import { BaseService } from '../base/base.service';
 
-export class ConfigurationsService {
-  private readonly envConfig: { [key: string]: string };
-
-  constructor(filePath: string) {
-    if (process.env.APP_ENV === 'production') {
-      this.envConfig = process.env;
-    } else {
-      this.envConfig = dotenv.parse(fs.readFileSync(filePath));
-    }
+@Injectable()
+export class ConfigurationsService extends BaseService<Configuration> {
+  constructor(
+    @InjectRepository(Configuration)
+    private readonly configurationRepository: Repository<Configuration>,
+  ) {
+    super(configurationRepository);
   }
 
-  get(key: string): string {
-    return this.envConfig[key];
-  }
-
-  isEnv(env: string) {
-    return this.envConfig.APP_ENV === env;
+  async getByKey(key: string) {
+    return this.configurationRepository.find({ key });
   }
 }

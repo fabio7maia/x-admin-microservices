@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { User } from './user.entity';
-import { ConfigurationsDbService } from '../configurations';
+import { ConfigurationsService } from '../configurations';
 import { UserServiceInput } from './types';
 import { BaseService } from '../base/base.service';
 
@@ -13,7 +13,7 @@ export class UsersService extends BaseService<User> {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-    private readonly configurationsDbService: ConfigurationsDbService,
+    private readonly configurationsService: ConfigurationsService,
   ) {
     super(userRepository);
   }
@@ -41,13 +41,13 @@ export class UsersService extends BaseService<User> {
   async create(userId: string, payload: UserServiceInput) {
     let allowCreateUsers = false;
 
-    const allowCreateUsersConfig = await this.configurationsDbService.getByKey(
+    const allowCreateUsersConfig = await this.configurationsService.getByKey(
       'allowRegisterUsers',
     );
 
     const allowCreateUsersConfigApp =
       payload.app &&
-      (await this.configurationsDbService.getByKey(
+      (await this.configurationsService.getByKey(
         `allowRegisterUsers.${payload.app}`,
       ));
 

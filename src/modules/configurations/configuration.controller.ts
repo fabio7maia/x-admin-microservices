@@ -16,7 +16,7 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { ConfigurationsDbService } from './configuration-db.service';
+import { ConfigurationsService } from './configuration.service';
 import { BaseController } from '../base/base.controller';
 import { Configuration } from './configuration.entity';
 import { DeleteResult } from 'typeorm';
@@ -28,10 +28,8 @@ import { Request } from 'express';
 @Controller('api/configurations')
 @ApiUseTags('Configurations')
 export class ConfigurationsController extends BaseController<Configuration> {
-  constructor(
-    private readonly configurationsDbService: ConfigurationsDbService,
-  ) {
-    super(configurationsDbService);
+  constructor(private readonly configurationsService: ConfigurationsService) {
+    super(configurationsService);
   }
 
   @ApiOperation({

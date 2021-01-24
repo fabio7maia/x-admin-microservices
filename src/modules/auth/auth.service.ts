@@ -3,8 +3,8 @@ import {
   UnauthorizedException,
   InternalServerErrorException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { ConfigurationsService } from './../configurations';
 import { User, UsersService } from './../users';
 import {
   AuthLoginServiceOutput,
@@ -17,13 +17,13 @@ import {
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly configurationsService: ConfigurationsService,
+    private readonly configService: ConfigService,
     private readonly usersService: UsersService,
   ) {}
 
   async createToken(user: User): Promise<AuthLoginServiceOutput> {
     return {
-      expiresIn: this.configurationsService.get('JWT_EXPIRATION_TIME'),
+      expiresIn: this.configService.get('JWT_EXPIRATION_TIME'),
       accessToken: this.jwtService.sign({ id: user.id }),
       user: user,
     };

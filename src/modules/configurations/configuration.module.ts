@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { ConfigurationsService } from './configuration.service';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Configuration } from './configuration.entity';
 import { ConfigurationsController } from './configuration.controller';
-import { ConfigurationsDbService } from './configuration-db.service';
+import { ConfigurationsService } from './configuration.service';
 
 @Module({
   imports: [
@@ -13,14 +12,8 @@ import { ConfigurationsDbService } from './configuration-db.service';
     TypeOrmModule.forFeature([Configuration]),
     ConfigModule,
   ],
-  providers: [
-    {
-      provide: ConfigurationsService,
-      useValue: new ConfigurationsService('.env'),
-    },
-    ConfigurationsDbService,
-  ],
-  exports: [ConfigurationsService, ConfigurationsDbService],
+  providers: [ConfigurationsService],
+  exports: [ConfigurationsService, ConfigurationsService],
   controllers: [ConfigurationsController],
 })
 export class ConfigurationsModule {}

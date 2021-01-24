@@ -3,10 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {
-  ConfigurationsModule,
-  ConfigurationsService,
-} from './../configurations';
+import { ConfigurationsModule } from './../configurations';
 import { AuthModule } from './../auth';
 import { NewsModule } from '../news';
 import { MenusModule } from '../menus';
@@ -27,18 +24,18 @@ import { QuizGameModule } from '../quizGame';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-      imports: [ConfigurationsModule],
-      inject: [ConfigurationsService],
-      useFactory: (configService: ConfigurationsService) => {
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
         return {
-          type: configService.get('DB_TYPE'),
-          host: configService.get('DB_HOST'),
-          port: configService.get('DB_PORT'),
-          username: configService.get('DB_USERNAME'),
-          password: configService.get('DB_PASSWORD'),
-          database: configService.get('DB_DATABASE'),
+          type: configService.get('DATABASE_TYPE'),
+          host: configService.get('DATABASE_HOST'),
+          port: configService.get('DATABASE_PORT'),
+          username: configService.get('DATABASE_USERNAME'),
+          password: configService.get('DATABASE_PASSWORD'),
+          database: configService.get('DATABASE_DATABASE'),
           entities: [__dirname + './../**/**.entity{.ts,.js}'],
-          synchronize: configService.isEnv('dev'),
+          synchronize: configService.get('APP_ENV') === 'dev',
         } as TypeOrmModuleAsyncOptions;
       },
     }),

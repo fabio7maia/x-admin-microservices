@@ -21,25 +21,31 @@ import {
   QuizEngineDoAnswerServiceInput,
   QuizEngineCachedGameUserData,
 } from './engine.types';
+import { RedisCacheService } from '../../redisCache';
 
 @Injectable()
 export class QuizzesEngineService {
   constructor(
     private readonly quizzesQuestionsAnswersService: QuizzesQuestionsAnswersService,
     private readonly quizzesUsersDataService: QuizzesUsersDataService,
+    private readonly redisCacheService: RedisCacheService,
   ) {}
 
-  private cachedGameUserData: Record<string, QuizEngineCachedGameUserData> = {};
+  // private cachedGameUserData: Record<string, QuizEngineCachedGameUserData> = {};
 
-  private getCachedUserData(userGameGuid): QuizEngineCachedGameUserData {
-    return this.cachedGameUserData[userGameGuid];
-  }
+  private getCachedUserData = (
+    userGameGuid,
+  ): Promise<QuizEngineCachedGameUserData> => {
+    // return this.cachedGameUserData[userGameGuid];
+    return this.redisCacheService.get(userGameGuid);
+  };
 
   private setCachedUserData(
     userGameGuid,
     gameUserData: QuizEngineCachedGameUserData,
   ): void {
-    this.cachedGameUserData[userGameGuid] = gameUserData;
+    // this.cachedGameUserData[userGameGuid] = gameUserData;
+    this.redisCacheService.set(userGameGuid, gameUserData);
   }
 
   private async getRandomQuestion(
@@ -153,7 +159,7 @@ export class QuizzesEngineService {
           authenticatedUserId,
         )
       : undefined;
-    const gameData = this.getCachedUserData(userGameGuid);
+    const gameData = await this.getCachedUserData(userGameGuid);
 
     if (!gameData || gameData.currentQuestionId !== questionId) {
       throw new InternalServerErrorException('Invalid game state');

@@ -5,8 +5,8 @@ import { AppService } from './app.service';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
-@Controller('api/main')
-@ApiUseTags('Main')
+@Controller('api/app')
+@ApiUseTags('App')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 

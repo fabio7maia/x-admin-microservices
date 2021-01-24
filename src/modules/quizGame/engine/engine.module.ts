@@ -4,10 +4,12 @@ import { QuizzesEngineController } from './engine.controller';
 import { PassportModule } from '@nestjs/passport';
 import { QuizzesQuestionsAnswersModule } from '../questionsAnswers';
 import { QuizzesUsersDataModule } from '../usersData';
+import { RedisCacheModule } from '../../redisCache';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    RedisCacheModule,
     QuizzesQuestionsAnswersModule,
     QuizzesUsersDataModule,
   ],

@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -41,6 +42,7 @@ import { QuizGameModule } from '../quizGame';
         } as TypeOrmModuleAsyncOptions;
       },
     }),
+    ConfigModule.forRoot(),
     ConfigurationsModule,
     AuthModule,
     NewsModule,

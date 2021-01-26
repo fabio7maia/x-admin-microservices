@@ -10,7 +10,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import {
-  ApiUseTags,
+  ApiTags,
   ApiBearerAuth,
   ApiResponse,
   ApiOperation,
@@ -26,14 +26,14 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/entities-records')
-@ApiUseTags('Entities Records')
+@ApiTags('Entities Records')
 export class EntitiesRecordsController extends BaseController<EntityRecord> {
   constructor(private readonly entitiesRecordsService: EntitiesRecordsService) {
     super(entitiesRecordsService);
   }
 
   @ApiOperation({
-    title: 'Get list of entity records',
+    summary: 'Get list of entity records',
     operationId: 'listEntityRecords',
   })
   @Get('/')
@@ -53,7 +53,7 @@ export class EntitiesRecordsController extends BaseController<EntityRecord> {
   }
 
   @ApiOperation({
-    title: 'Get data for specific entity record',
+    summary: 'Get data for specific entity record',
     operationId: 'getEntityRecord',
   })
   @Get('/:id')
@@ -69,7 +69,7 @@ export class EntitiesRecordsController extends BaseController<EntityRecord> {
   }
 
   @ApiOperation({
-    title: 'Add new entity record',
+    summary: 'Add new entity record',
     operationId: 'addEntityRecord',
   })
   @Post('/')
@@ -88,7 +88,7 @@ export class EntitiesRecordsController extends BaseController<EntityRecord> {
   }
 
   @ApiOperation({
-    title: 'Edit existing entity record',
+    summary: 'Edit existing entity record',
     operationId: 'editEntityRecord',
   })
   @Put('/:id')
@@ -108,7 +108,7 @@ export class EntitiesRecordsController extends BaseController<EntityRecord> {
   }
 
   @ApiOperation({
-    title: 'Delete existing entity record',
+    summary: 'Delete existing entity record',
     operationId: 'deleteEntityRecord',
   })
   @Delete('/:id')

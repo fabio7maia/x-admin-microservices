@@ -9,7 +9,7 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { UsersCompaniesService } from './';
 import { BaseController } from '../base/base.controller';
 import { UserCompany } from './userCompany.entity';
@@ -21,7 +21,7 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/users-companies')
-@ApiUseTags('Users Companies')
+@ApiTags('Users Companies')
 export class UsersCompaniesController extends BaseController<UserCompany> {
   constructor(private readonly usersCompaniesService: UsersCompaniesService) {
     super(usersCompaniesService);

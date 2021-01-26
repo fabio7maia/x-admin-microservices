@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiResponse,
-  ApiUseTags,
+  ApiTags,
   ApiBearerAuth,
   ApiOperation,
 } from '@nestjs/swagger';
@@ -25,7 +25,7 @@ import { Request } from 'express';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/quiz-game/questions')
-@ApiUseTags('Questions - Quiz Game')
+@ApiTags('Questions - Quiz Game')
 export class QuizzesQuestionsController extends BaseController<QuizQuestion> {
   constructor(
     private readonly quizzesQuestionsService: QuizzesQuestionsService,
@@ -34,7 +34,7 @@ export class QuizzesQuestionsController extends BaseController<QuizQuestion> {
   }
 
   @ApiOperation({
-    title: 'List of quiz questions',
+    summary: 'List of quiz questions',
     operationId: 'listQuizQuestions',
   })
   @Get('/')
@@ -54,7 +54,7 @@ export class QuizzesQuestionsController extends BaseController<QuizQuestion> {
   }
 
   @ApiOperation({
-    title: 'Get specific quiz question',
+    summary: 'Get specific quiz question',
     operationId: 'getQuizQuestion',
   })
   @Get('/:id')
@@ -70,7 +70,7 @@ export class QuizzesQuestionsController extends BaseController<QuizQuestion> {
   }
 
   @ApiOperation({
-    title: 'Add quiz question',
+    summary: 'Add quiz question',
     operationId: 'addQuizQuestion',
   })
   @Post('/')
@@ -89,7 +89,7 @@ export class QuizzesQuestionsController extends BaseController<QuizQuestion> {
   }
 
   @ApiOperation({
-    title: 'Edit quiz question',
+    summary: 'Edit quiz question',
     operationId: 'editQuizQuestion',
   })
   @Put('/:id')
@@ -109,7 +109,7 @@ export class QuizzesQuestionsController extends BaseController<QuizQuestion> {
   }
 
   @ApiOperation({
-    title: 'Delete quiz question',
+    summary: 'Delete quiz question',
     operationId: 'deleteQuizQuestion',
   })
   @Delete('/:id')

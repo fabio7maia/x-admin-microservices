@@ -9,7 +9,7 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { FunctionalitiesService } from './';
 import { BaseController } from '../base/base.controller';
 import { Functionality } from './functionality.entity';
@@ -21,7 +21,7 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/functionalities')
-@ApiUseTags('Functionalities')
+@ApiTags('Functionalities')
 export class FunctionalitiesController extends BaseController<Functionality> {
   constructor(private readonly functionalitiesService: FunctionalitiesService) {
     super(functionalitiesService);

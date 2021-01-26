@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import {
-  ApiUseTags,
+  ApiTags,
   ApiResponse,
   ApiBearerAuth,
   ApiOperation,
@@ -26,14 +26,14 @@ import { Request } from 'express';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/configurations')
-@ApiUseTags('Configurations')
+@ApiTags('Configurations')
 export class ConfigurationsController extends BaseController<Configuration> {
   constructor(private readonly configurationsService: ConfigurationsService) {
     super(configurationsService);
   }
 
   @ApiOperation({
-    title: 'Get list of configurations',
+    summary: 'Get list of configurations',
     operationId: 'listConfigurations',
   })
   @Get('/')
@@ -53,7 +53,7 @@ export class ConfigurationsController extends BaseController<Configuration> {
   }
 
   @ApiOperation({
-    title: 'Get data for specific configuration',
+    summary: 'Get data for specific configuration',
     operationId: 'getConfiguration',
   })
   @Get('/:id')
@@ -69,7 +69,7 @@ export class ConfigurationsController extends BaseController<Configuration> {
   }
 
   @ApiOperation({
-    title: 'Add new configuration',
+    summary: 'Add new configuration',
     operationId: 'addConfiguration',
   })
   @Post('/')
@@ -88,7 +88,7 @@ export class ConfigurationsController extends BaseController<Configuration> {
   }
 
   @ApiOperation({
-    title: 'Edit existing configuration',
+    summary: 'Edit existing configuration',
     operationId: 'editConfiguration',
   })
   @Put('/:id')
@@ -108,7 +108,7 @@ export class ConfigurationsController extends BaseController<Configuration> {
   }
 
   @ApiOperation({
-    title: 'Delete existing configuration',
+    summary: 'Delete existing configuration',
     operationId: 'deleteConfiguration',
   })
   @Delete('/:id')

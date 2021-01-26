@@ -9,7 +9,7 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiResponse, ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { MenusService } from './';
 import { BaseController } from '../base/base.controller';
@@ -21,7 +21,7 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/menus')
-@ApiUseTags('Menus')
+@ApiTags('Menus')
 export class MenusController extends BaseController<Menu> {
   constructor(private readonly menusService: MenusService) {
     super(menusService);

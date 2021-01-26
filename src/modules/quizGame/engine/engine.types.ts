@@ -1,45 +1,45 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class QuizEngineBaseInput {
-  @ApiModelProperty()
+  @ApiProperty()
   quizCode: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   authenticatedUserId: string;
 }
 
 export class QuizEngineBaseQuestionAnswerOutput {
-  @ApiModelProperty()
+  @ApiProperty()
   id: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   answer: string;
 }
 
 export class QuizEngineBaseQuestionsOutput {
-  @ApiModelProperty()
+  @ApiProperty()
   id: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   question: string;
 
-  @ApiModelProperty({ type: QuizEngineBaseQuestionAnswerOutput, isArray: true })
+  @ApiProperty({ type: QuizEngineBaseQuestionAnswerOutput, isArray: true })
   answers: QuizEngineBaseQuestionAnswerOutput[];
 }
 
 export class QuizEngineGameUserData {
-  @ApiModelProperty()
+  @ApiProperty()
   points: number;
 
-  @ApiModelProperty()
+  @ApiProperty()
   answers: number;
 
-  @ApiModelProperty()
+  @ApiProperty()
   correctAnswers: number;
 }
 
 export class QuizEngineBaseOutput {
-  @ApiModelProperty()
+  @ApiProperty()
   question: QuizEngineBaseQuestionsOutput;
 }
 
@@ -52,46 +52,46 @@ export class QuizEngineGetRandomQuestionOutput extends QuizEngineBaseOutput {}
 export class QuizEngineGetQuizGameDataInput extends QuizEngineBaseInput {}
 
 export class QuizEngineGetQuizGameDataOutput extends QuizEngineBaseOutput {
-  @ApiModelProperty()
+  @ApiProperty()
   userGameGuid: string;
 
-  @ApiModelProperty({ type: QuizEngineGameUserData })
+  @ApiProperty({ type: QuizEngineGameUserData })
   gameData: QuizEngineGameUserData;
 }
 
 export class QuizEngineDoAnswerInput {
-  @ApiModelProperty()
+  @ApiProperty()
   quizCode: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   userGameGuid: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   questionId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   answerId: string;
 }
 
 export class QuizEngineDoAnswerServiceInput extends QuizEngineBaseInput {
-  @ApiModelProperty()
+  @ApiProperty()
   userGameGuid: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   questionId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   answerId: string;
 }
 
 export class QuizEngineDoAnswerOutput extends QuizEngineBaseOutput {
-  @ApiModelProperty()
+  @ApiProperty()
   userGameGuid: string;
 
-  @ApiModelProperty({ type: QuizEngineGameUserData })
+  @ApiProperty({ type: QuizEngineGameUserData })
   gameData: QuizEngineGameUserData;
 
-  @ApiModelProperty()
+  @ApiProperty()
   isCorrectAnswer: boolean;
 }
 

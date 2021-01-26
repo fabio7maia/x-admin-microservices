@@ -8,25 +8,25 @@ import {
 } from 'typeorm';
 import { PasswordTransformer } from './password.transformer';
 import { BaseEntity } from '../base/base.entity';
-import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 @Entity({
   name: 'users',
 })
 export class User extends BaseEntity {
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ length: 100 })
   firstName: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ length: 100 })
   lastName: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ length: 100, nullable: false })
   email: string;
 
-  @ApiModelPropertyOptional()
+  @ApiPropertyOptional()
   @Column({
     name: 'password',
     length: 100,
@@ -36,11 +36,11 @@ export class User extends BaseEntity {
   @Exclude()
   password?: string;
 
-  @ApiModelPropertyOptional()
+  @ApiPropertyOptional()
   @Column({ length: 150 })
   imageUrl?: string;
 
-  @ApiModelPropertyOptional()
+  @ApiPropertyOptional()
   @Column({ length: 50 })
   providerId?: string;
 }

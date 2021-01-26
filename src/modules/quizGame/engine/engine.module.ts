@@ -5,6 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { QuizzesQuestionsAnswersModule } from '../questionsAnswers';
 import { QuizzesUsersDataModule } from '../usersData';
 import { RedisCacheModule } from '../../redisCache';
+import { QuizzesEngineGateway } from './engine.gateway';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { RedisCacheModule } from '../../redisCache';
   ],
   exports: [QuizzesEngineService],
   controllers: [QuizzesEngineController],
-  providers: [QuizzesEngineService],
+  providers: [QuizzesEngineService, QuizzesEngineGateway],
 })
 export class QuizzesEngineModule {}

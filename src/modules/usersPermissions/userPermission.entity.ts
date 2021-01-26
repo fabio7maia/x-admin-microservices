@@ -4,20 +4,20 @@ import { User } from '../users';
 import { Company } from '../companies';
 import { Permission } from '../permissions';
 import { Functionality } from '../functionalities';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({
   name: 'users_permissions',
 })
 export class UserPermission extends BaseEntity {
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ length: 100, nullable: false })
   name: string;
 
   @Column({ length: 250 })
   description?: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => User,
     user => user.id,
@@ -29,7 +29,7 @@ export class UserPermission extends BaseEntity {
   @Column({ length: 36, nullable: false })
   userId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => Permission,
     permission => permission.id,
@@ -41,7 +41,7 @@ export class UserPermission extends BaseEntity {
   @Column({ length: 36, nullable: false })
   permissionId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => Functionality,
     functionality => functionality.id,

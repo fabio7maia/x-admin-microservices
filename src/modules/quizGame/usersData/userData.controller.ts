@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiResponse,
-  ApiUseTags,
+  ApiTags,
   ApiBearerAuth,
   ApiOperation,
 } from '@nestjs/swagger';
@@ -23,7 +23,7 @@ import { DeleteResult } from 'typeorm';
 import { Request } from 'express';
 
 @Controller('api/quiz-game/users-data')
-@ApiUseTags('Users Data - Quiz Game')
+@ApiTags('Users Data - Quiz Game')
 export class QuizzesUsersDataController extends BaseController<QuizUserData> {
   constructor(
     private readonly quizzesUsersDataService: QuizzesUsersDataService,
@@ -32,7 +32,7 @@ export class QuizzesUsersDataController extends BaseController<QuizUserData> {
   }
 
   @ApiOperation({
-    title: 'Get list of users data quiz game',
+    summary: 'Get list of users data quiz game',
     operationId: 'listQuizUserData',
   })
   @UseGuards(AuthGuard())
@@ -54,7 +54,7 @@ export class QuizzesUsersDataController extends BaseController<QuizUserData> {
   }
 
   @ApiOperation({
-    title: 'Get specific user data quiz game',
+    summary: 'Get specific user data quiz game',
     operationId: 'getQuizUserData',
   })
   @UseGuards(AuthGuard())
@@ -72,7 +72,7 @@ export class QuizzesUsersDataController extends BaseController<QuizUserData> {
   }
 
   @ApiOperation({
-    title: 'Add user data quiz game',
+    summary: 'Add user data quiz game',
     operationId: 'addUserDataQuiz',
   })
   @UseGuards(AuthGuard())
@@ -93,7 +93,7 @@ export class QuizzesUsersDataController extends BaseController<QuizUserData> {
   }
 
   @ApiOperation({
-    title: 'Edit user data quiz game',
+    summary: 'Edit user data quiz game',
     operationId: 'editUserDataQuiz',
   })
   @UseGuards(AuthGuard())
@@ -115,7 +115,7 @@ export class QuizzesUsersDataController extends BaseController<QuizUserData> {
   }
 
   @ApiOperation({
-    title: 'Delete user data quiz game',
+    summary: 'Delete user data quiz game',
     operationId: 'deleteQuiz',
   })
   @UseGuards(AuthGuard())

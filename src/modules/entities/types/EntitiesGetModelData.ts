@@ -1,8 +1,8 @@
 import { Entity } from '../entity.entity';
 import { Field } from '../../fields';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class EntitiesGetModelDataServiceOutput extends Entity {
-  @ApiModelProperty()
+  @ApiProperty()
   fields: Field[];
 }

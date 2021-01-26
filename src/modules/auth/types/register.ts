@@ -1,21 +1,21 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, MinLength } from 'class-validator';
 import { BaseAuthServiceInput, BaseAuthServiceOutput } from './base';
 
 export class AuthRegisterServiceInput extends BaseAuthServiceInput {
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   @IsNotEmpty()
   firstName: string;
 
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   @IsNotEmpty()
   lastName: string;
 
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   @IsNotEmpty()

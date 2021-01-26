@@ -6,21 +6,21 @@ import {
 } from 'typeorm';
 import { BaseEntity } from '../base/base.entity';
 import { Permission } from '../permissions';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 @EntityTypeOrm({
   name: 'entities',
 })
 export class Entity extends BaseEntity {
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ length: 100, nullable: false })
   name: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ length: 250 })
   description?: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => Permission,
     permission => permission.id,

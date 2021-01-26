@@ -1,9 +1,9 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 import { BaseAuthServiceInput, BaseAuthServiceOutput } from './base';
 
 export class AuthLoginServiceInput extends BaseAuthServiceInput {
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   @IsNotEmpty()
@@ -14,25 +14,25 @@ export class AuthLoginServiceInput extends BaseAuthServiceInput {
 export class AuthLoginServiceOutput extends BaseAuthServiceOutput {}
 
 export class AuthLoginExternalProviderServiceInput extends BaseAuthServiceInput {
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   @IsNotEmpty()
   firstName: string;
 
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   @IsNotEmpty()
   lastName: string;
 
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   @IsNotEmpty()
   providerId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   imageUrl: string;
 }
 

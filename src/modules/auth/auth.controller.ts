@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiResponse,
-  ApiUseTags,
+  ApiTags,
   ApiBearerAuth,
   ApiOperation,
 } from '@nestjs/swagger';
@@ -28,12 +28,12 @@ import { BaseHelper } from '../base/base.helper';
 import { AuthMeServiceOutput } from './types/me';
 
 @Controller('api/auth')
-@ApiUseTags('Authentication')
+@ApiTags('Authentication')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @ApiOperation({
-    title: 'Login existing user',
+    summary: 'Login existing user',
     operationId: 'login',
   })
   @Post('login')
@@ -52,7 +52,7 @@ export class AuthController {
   }
 
   @ApiOperation({
-    title: 'Login or register existing user from external provider',
+    summary: 'Login or register existing user from external provider',
     operationId: 'loginFromExternalProvider',
   })
   @Post('loginFromExternalProvider')
@@ -77,7 +77,7 @@ export class AuthController {
   }
 
   @ApiOperation({
-    title: 'Register new user',
+    summary: 'Register new user',
     operationId: 'register',
   })
   @Post('register')
@@ -100,7 +100,7 @@ export class AuthController {
   }
 
   @ApiOperation({
-    title: 'Get information about logged user',
+    summary: 'Get information about logged user',
     operationId: 'me',
   })
   @ApiBearerAuth()

@@ -1,13 +1,13 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../base';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../users';
 
 @Entity({
   name: 'quizzes_users_data',
 })
 export class QuizUserData extends BaseEntity {
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => User,
     user => user.id,
@@ -19,15 +19,15 @@ export class QuizUserData extends BaseEntity {
   @Column({ length: 36, nullable: false, unique: true })
   userId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ nullable: false, default: 0 })
   points: number;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ nullable: false, default: 0 })
   answers: number;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ nullable: false, default: 0 })
   correctAnswers: number;
 }

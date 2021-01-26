@@ -9,7 +9,7 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { ApiResponse, ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { NewsService } from './';
 import { BaseController } from '../base/base.controller';
@@ -19,7 +19,7 @@ import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 
 @Controller('api/news')
-@ApiUseTags('News')
+@ApiTags('News')
 export class NewsController extends BaseController<NewEntity> {
   constructor(private readonly newsService: NewsService) {
     super(newsService);

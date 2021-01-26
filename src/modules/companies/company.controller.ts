@@ -10,7 +10,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import {
-  ApiUseTags,
+  ApiTags,
   ApiBearerAuth,
   ApiResponse,
   ApiOperation,
@@ -26,14 +26,14 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/companies')
-@ApiUseTags('Companies')
+@ApiTags('Companies')
 export class CompaniesController extends BaseController<Company> {
   constructor(private readonly companiesService: CompaniesService) {
     super(companiesService);
   }
 
   @ApiOperation({
-    title: 'Get list of companies',
+    summary: 'Get list of companies',
     operationId: 'listCompanies',
   })
   @Get('/')
@@ -50,7 +50,7 @@ export class CompaniesController extends BaseController<Company> {
   }
 
   @ApiOperation({
-    title: 'Get data for specific company',
+    summary: 'Get data for specific company',
     operationId: 'getCompany',
   })
   @Get('/:id')
@@ -66,7 +66,7 @@ export class CompaniesController extends BaseController<Company> {
   }
 
   @ApiOperation({
-    title: 'Add new company',
+    summary: 'Add new company',
     operationId: 'addCompany',
   })
   @Post('/')
@@ -82,7 +82,7 @@ export class CompaniesController extends BaseController<Company> {
   }
 
   @ApiOperation({
-    title: 'Edit existing company',
+    summary: 'Edit existing company',
     operationId: 'editCompany',
   })
   @Put('/:id')
@@ -102,7 +102,7 @@ export class CompaniesController extends BaseController<Company> {
   }
 
   @ApiOperation({
-    title: 'Delete existing company',
+    summary: 'Delete existing company',
     operationId: 'deleteCompany',
   })
   @Delete('/:id')

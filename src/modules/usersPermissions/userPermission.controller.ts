@@ -9,7 +9,7 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { UsersPermissionsService } from './';
 import { BaseController } from '../base/base.controller';
 import { UserPermission } from './userPermission.entity';
@@ -21,7 +21,7 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/users-permissions')
-@ApiUseTags('Users Permissions')
+@ApiTags('Users Permissions')
 export class UsersPermissionsController extends BaseController<UserPermission> {
   constructor(
     private readonly usersPermissionsService: UsersPermissionsService,

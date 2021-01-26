@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiResponse,
-  ApiUseTags,
+  ApiTags,
   ApiOperation,
   ApiBearerAuth,
 } from '@nestjs/swagger';
@@ -25,12 +25,12 @@ import { JwtAuthGuardNoException } from '../../auth';
 @UseGuards(JwtAuthGuardNoException)
 @ApiBearerAuth()
 @Controller('api/quiz-game/engine')
-@ApiUseTags('Engine - Quiz Game')
+@ApiTags('Engine - Quiz Game')
 export class QuizzesEngineController {
   constructor(private readonly quizzesEngineService: QuizzesEngineService) {}
 
   @ApiOperation({
-    title: 'Get data of quiz game',
+    summary: 'Get data of quiz game',
     operationId: 'getQuizGame',
   })
   @Get('/:quizCode?')
@@ -60,7 +60,7 @@ export class QuizzesEngineController {
   }
 
   @ApiOperation({
-    title: 'Answer specific question of quiz game',
+    summary: 'Answer specific question of quiz game',
     operationId: 'doAnswer',
   })
   @Post('/')

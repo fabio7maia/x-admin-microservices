@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiResponse,
-  ApiUseTags,
+  ApiTags,
   ApiBearerAuth,
   ApiOperation,
 } from '@nestjs/swagger';
@@ -27,7 +27,7 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/entities')
-@ApiUseTags('Entities')
+@ApiTags('Entities')
 export class EntitiesController extends BaseController<Entity> {
   constructor(
     private readonly entitiesService: EntitiesService,
@@ -37,7 +37,7 @@ export class EntitiesController extends BaseController<Entity> {
   }
 
   @ApiOperation({
-    title: 'Get model data for specific entity',
+    summary: 'Get model data for specific entity',
     operationId: 'getModelDataEntity',
   })
   @Get('/model-data/:id')
@@ -64,7 +64,7 @@ export class EntitiesController extends BaseController<Entity> {
   }
 
   @ApiOperation({
-    title: 'Get list of entities',
+    summary: 'Get list of entities',
     operationId: 'listEntities',
   })
   @Get('/')
@@ -81,7 +81,7 @@ export class EntitiesController extends BaseController<Entity> {
   }
 
   @ApiOperation({
-    title: 'Get data for specific entity',
+    summary: 'Get data for specific entity',
     operationId: 'getEntity',
   })
   @Get('/:id')
@@ -97,7 +97,7 @@ export class EntitiesController extends BaseController<Entity> {
   }
 
   @ApiOperation({
-    title: 'Add new entity',
+    summary: 'Add new entity',
     operationId: 'addEntity',
   })
   @Post('/')
@@ -113,7 +113,7 @@ export class EntitiesController extends BaseController<Entity> {
   }
 
   @ApiOperation({
-    title: 'Edit existing entity',
+    summary: 'Edit existing entity',
     operationId: 'editEntity',
   })
   @Put('/:id')
@@ -133,7 +133,7 @@ export class EntitiesController extends BaseController<Entity> {
   }
 
   @ApiOperation({
-    title: 'Delete existing entity',
+    summary: 'Delete existing entity',
     operationId: 'deleteEntity',
   })
   @Delete('/:id')

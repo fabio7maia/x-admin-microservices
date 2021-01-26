@@ -10,7 +10,7 @@ import {
   Get,
 } from '@nestjs/common';
 import {
-  ApiUseTags,
+  ApiTags,
   ApiResponse,
   ApiBearerAuth,
   ApiOperation,
@@ -24,14 +24,14 @@ import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 
 @Controller('api/translations')
-@ApiUseTags('Translations')
+@ApiTags('Translations')
 export class TranslationsController extends BaseController<Translation> {
   constructor(private readonly translationService: TranslationService) {
     super(translationService);
   }
 
   @ApiOperation({
-    title: 'Get list of translations',
+    summary: 'Get list of translations',
     operationId: 'listTranslations',
   })
   @Get('/')
@@ -53,7 +53,7 @@ export class TranslationsController extends BaseController<Translation> {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    title: 'Get data for specific translation',
+    summary: 'Get data for specific translation',
     operationId: 'getTranslation',
   })
   @Get('/:id')
@@ -71,7 +71,7 @@ export class TranslationsController extends BaseController<Translation> {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    title: 'Add new translation',
+    summary: 'Add new translation',
     operationId: 'addTranslation',
   })
   @Post('/')
@@ -89,7 +89,7 @@ export class TranslationsController extends BaseController<Translation> {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    title: 'Edit existing translation',
+    summary: 'Edit existing translation',
     operationId: 'editTranslation',
   })
   @Put('/:id')
@@ -111,7 +111,7 @@ export class TranslationsController extends BaseController<Translation> {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    title: 'Delete existing translation',
+    summary: 'Delete existing translation',
     operationId: 'deleteTranslation',
   })
   @Delete('/:id')

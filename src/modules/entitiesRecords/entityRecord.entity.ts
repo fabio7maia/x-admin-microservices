@@ -6,13 +6,13 @@ import {
 } from 'typeorm';
 import { BaseEntity } from '../base/base.entity';
 import { Entity } from '../entities';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 @EntityTypeOrm({
   name: 'entities_records',
 })
 export class EntityRecord extends BaseEntity {
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => Entity,
     entity => entity.id,
@@ -24,7 +24,7 @@ export class EntityRecord extends BaseEntity {
   @Column({ length: 36, nullable: false })
   entityId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ type: 'text', nullable: false })
   data: string;
 }

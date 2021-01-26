@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import {
-  ApiUseTags,
+  ApiTags,
   ApiBearerAuth,
   ApiResponse,
   ApiOperation,
@@ -25,7 +25,7 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/users')
-@ApiUseTags('Users')
+@ApiTags('Users')
 export class UsersController extends BaseController<User> {
   constructor(private readonly usersService: UsersService) {
     super(usersService);
@@ -33,7 +33,7 @@ export class UsersController extends BaseController<User> {
 
   @Get('/')
   @ApiOperation({
-    title: 'Get list of users',
+    summary: 'Get list of users',
     operationId: 'listUsers',
   })
   @ApiResponse({
@@ -50,7 +50,7 @@ export class UsersController extends BaseController<User> {
 
   @Get('/:id')
   @ApiOperation({
-    title: 'Get specific user',
+    summary: 'Get specific user',
     operationId: 'getUser',
   })
   @ApiResponse({
@@ -66,7 +66,7 @@ export class UsersController extends BaseController<User> {
 
   @Post('/')
   @ApiOperation({
-    title: 'Add new user',
+    summary: 'Add new user',
     operationId: 'addUser',
   })
   @ApiResponse({
@@ -82,7 +82,7 @@ export class UsersController extends BaseController<User> {
 
   @Put('/:id')
   @ApiOperation({
-    title: 'Edit existing user',
+    summary: 'Edit existing user',
     operationId: 'editUser',
   })
   @ApiResponse({
@@ -102,7 +102,7 @@ export class UsersController extends BaseController<User> {
 
   @Delete('/:id')
   @ApiOperation({
-    title: 'Delete user',
+    summary: 'Delete user',
     operationId: 'deleteUser',
   })
   @ApiResponse({

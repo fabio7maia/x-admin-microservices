@@ -1,14 +1,14 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail } from 'class-validator';
 import { User } from '../../users';
 
 export class BaseAuthServiceInput {
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   app: string;
 
-  @ApiModelProperty({
+  @ApiProperty({
     required: true,
   })
   @IsEmail()
@@ -16,12 +16,12 @@ export class BaseAuthServiceInput {
 }
 
 export class BaseAuthServiceOutput {
-  @ApiModelProperty()
+  @ApiProperty()
   expiresIn: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   accessToken: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   user: User;
 }

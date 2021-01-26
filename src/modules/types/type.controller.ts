@@ -9,7 +9,7 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { TypesService } from './';
 import { BaseController } from '../base/base.controller';
 import { Type } from './type.entity';
@@ -21,7 +21,7 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/types')
-@ApiUseTags('Types')
+@ApiTags('Types')
 export class TypesController extends BaseController<Type> {
   constructor(private readonly typesService: TypesService) {
     super(typesService);

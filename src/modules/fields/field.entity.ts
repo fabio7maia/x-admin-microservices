@@ -8,21 +8,21 @@ import { BaseEntity } from '../base/base.entity';
 import { Entity } from '../entities';
 import { Type } from '../types';
 import { Permission } from '../permissions';
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 @EntityTypeOrm({
   name: 'fields',
 })
 export class Field extends BaseEntity {
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ length: 100, nullable: false })
   name: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @Column({ length: 250 })
   description?: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => Entity,
     entity => entity.id,
@@ -34,7 +34,7 @@ export class Field extends BaseEntity {
   @Column({ length: 36, nullable: false })
   entityId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => Type,
     type => type.id,
@@ -46,7 +46,7 @@ export class Field extends BaseEntity {
   @Column({ length: 36, nullable: false })
   typeId: string;
 
-  @ApiModelProperty()
+  @ApiProperty()
   @ManyToOne(
     () => Permission,
     permission => permission.id,

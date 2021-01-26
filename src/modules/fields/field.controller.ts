@@ -9,7 +9,7 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { FieldsService } from '.';
 import { BaseController } from '../base/base.controller';
 import { Field } from './field.entity';
@@ -21,7 +21,7 @@ import { DeleteResult } from 'typeorm';
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
 @Controller('api/fields')
-@ApiUseTags('Fields')
+@ApiTags('Fields')
 export class FieldsController extends BaseController<Field> {
   constructor(private readonly fieldsService: FieldsService) {
     super(fieldsService);

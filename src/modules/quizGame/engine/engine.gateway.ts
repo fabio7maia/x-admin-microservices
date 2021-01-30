@@ -8,10 +8,13 @@ import {
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
+import { QuizzesEngineService } from './engine.service';
 
 @WebSocketGateway({ path: '/ws/events' })
 export class QuizzesEngineGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+  constructor(private readonly quizzesEngineService: QuizzesEngineService) {}
+
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('QuizzesEngineGateway');
 
@@ -19,6 +22,34 @@ export class QuizzesEngineGateway
   handleMessage(client: Socket, payload: string): void {
     this.logger.log('emit > msgToClient');
     this.server.emit('msgToClient', payload);
+  }
+
+  @SubscribeMessage('online')
+  handleOnline(client: Socket, payload: string): void {
+    this.logger.log(`handleOnline > ${payload}`);
+
+    const payloadObj = JSON.parse(payload);
+
+    this.logger.log(
+      `handleOnline > ${JSON.stringify({
+        audience: [payloadObj.clientId],
+        clientId: payloadObj.clientId,
+        refererClientId: client.id,
+      })}`,
+    );
+
+    this.quizzesEngineService.setOnlineUserData(JSON.parse(payload));
+  }
+
+  @SubscribeMessage('online-list')
+  async handleOnlineList(client: Socket): Promise<void> {
+    this.logger.log(`handleOnlineList`);
+
+    const onlineUsers = await this.quizzesEngineService.getOnlineUsersData();
+
+    this.logger.log(`handleOnlineList ${JSON.stringify(onlineUsers)}`);
+
+    this.server.emit('online-list', JSON.stringify(onlineUsers));
   }
 
   @SubscribeMessage('invite')

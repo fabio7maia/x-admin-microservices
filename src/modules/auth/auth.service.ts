@@ -47,7 +47,7 @@ export class AuthService {
     userId: string,
     payload: AuthLoginExternalProviderServiceInput,
   ): Promise<User> {
-    const { email, providerId } = payload;
+    const { email, providerId, imageUrl } = payload;
     let user = await this.usersService.getByEmail(email);
 
     if (!user) {
@@ -61,13 +61,14 @@ export class AuthService {
         user.id,
         {
           ...user,
+          imageUrl,
           providerId,
         },
         true,
       );
     }
 
-    console.log('user >>', { user });
+    // console.log('user >>', { user });
 
     if (!user.active) {
       throw new InternalServerErrorException('User is inactve.');

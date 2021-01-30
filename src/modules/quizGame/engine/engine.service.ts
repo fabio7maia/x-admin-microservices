@@ -20,6 +20,7 @@ import {
   QuizEngineDoAnswerOutput,
   QuizEngineDoAnswerServiceInput,
   QuizEngineCachedGameUserData,
+  QuizEngineSetOnlineUserData,
 } from './engine.types';
 import { RedisCacheService } from '../../redisCache';
 
@@ -31,22 +32,18 @@ export class QuizzesEngineService {
     private readonly redisCacheService: RedisCacheService,
   ) {}
 
-  // private cachedGameUserData: Record<string, QuizEngineCachedGameUserData> = {};
-
   private getCachedUserData = (
     userGameGuid,
   ): Promise<QuizEngineCachedGameUserData> => {
-    // return this.cachedGameUserData[userGameGuid];
     return this.redisCacheService.get(userGameGuid);
   };
 
-  private setCachedUserData(
+  private setCachedUserData = (
     userGameGuid,
     gameUserData: QuizEngineCachedGameUserData,
-  ): void {
-    // this.cachedGameUserData[userGameGuid] = gameUserData;
+  ): void => {
     this.redisCacheService.set(userGameGuid, gameUserData);
-  }
+  };
 
   private async getRandomQuestion(
     input: QuizEngineGetRandomQuestionInput,
@@ -237,4 +234,22 @@ export class QuizzesEngineService {
       isCorrectAnswer: answerResult?.correctAnswer,
     };
   }
+
+  getOnlineUsersData = async (): Promise<
+    Record<string, QuizEngineSetOnlineUserData>
+  > => {
+    return (await this.redisCacheService.get('onlineUsers')) || {};
+  };
+
+  setOnlineUserData = async (
+    user: QuizEngineSetOnlineUserData,
+  ): Promise<void> => {
+    const onlineUsers = await this.getOnlineUsersData();
+
+    console.log('setOnlineUsersData', { onlineUsers });
+
+    onlineUsers[user.id] = user;
+
+    this.redisCacheService.set('onlineUsers', onlineUsers);
+  };
 }

@@ -98,3 +98,10 @@ export class QuizEngineDoAnswerOutput extends QuizEngineBaseOutput {
 export type QuizEngineCachedGameUserData = QuizEngineGameUserData & {
   currentQuestionId: string;
 };
+
+export interface QuizEngineSetOnlineUserData {
+  id: string;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+}

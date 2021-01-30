@@ -54,6 +54,7 @@
     "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.2",
+    "socket.io": "^2.4.1",
     "swagger-ui-express": "^3.0.10",
     "typeorm": "^0.2.17",
     "typescript": "^3.5.1"

@@ -250,6 +250,6 @@ export class QuizzesEngineService {
 
     onlineUsers[user.id] = user;
 
-    this.redisCacheService.set('onlineUsers', onlineUsers);
+    this.redisCacheService.set('onlineUsers', onlineUsers, { ttl: 60 });
   };
 }

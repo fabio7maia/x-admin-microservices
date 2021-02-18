@@ -12,8 +12,9 @@ export abstract class BaseController<T extends BaseEntity> {
   async getListOfRecords(
     @Req() req: Request,
     order?: IFieldsOrder,
+    where?: Record<string, any>,
   ): Promise<T[]> {
-    const where = {};
+    where = where || {};
 
     if (req.query) {
       const id = req.query.id;

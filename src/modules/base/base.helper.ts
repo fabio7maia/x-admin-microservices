@@ -18,4 +18,8 @@ export abstract class BaseHelper {
       return v.toString(16);
     });
   };
+
+  static readonly getCurrentAppId = (req: any): string | undefined => {
+    return req.headers['app-id'];
+  };
 }

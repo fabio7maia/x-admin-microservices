@@ -33,8 +33,8 @@ export class UsersController extends BaseController<User> {
 
   @Get('/')
   @ApiOperation({
-    summary: 'Get list of users',
-    operationId: 'listUsers',
+    summary: 'List of users',
+    operationId: 'getUsers',
   })
   @ApiResponse({
     status: 200,
@@ -66,7 +66,7 @@ export class UsersController extends BaseController<User> {
 
   @Post('/')
   @ApiOperation({
-    summary: 'Add new user',
+    summary: 'Add user',
     operationId: 'addUser',
   })
   @ApiResponse({
@@ -82,7 +82,7 @@ export class UsersController extends BaseController<User> {
 
   @Put('/:id')
   @ApiOperation({
-    summary: 'Edit existing user',
+    summary: 'Edit user',
     operationId: 'editUser',
   })
   @ApiResponse({

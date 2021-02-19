@@ -34,7 +34,7 @@ export class EntitiesRecordsController extends BaseController<EntityRecord> {
 
   @ApiOperation({
     summary: 'Get list of entity records',
-    operationId: 'listEntityRecords',
+    operationId: 'getEntityRecords',
   })
   @Get('/')
   @ApiResponse({

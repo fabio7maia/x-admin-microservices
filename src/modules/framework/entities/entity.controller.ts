@@ -65,7 +65,7 @@ export class EntitiesController extends BaseController<Entity> {
 
   @ApiOperation({
     summary: 'Get list of entities',
-    operationId: 'listEntities',
+    operationId: 'getEntities',
   })
   @Get('/')
   @ApiResponse({

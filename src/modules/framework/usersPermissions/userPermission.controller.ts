@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { UsersPermissionsService } from './';
 import { BaseController } from '../../base/base.controller';
 import { UserPermission } from './userPermission.entity';
@@ -29,6 +34,10 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
     super(usersPermissionsService);
   }
 
+  @ApiOperation({
+    summary: 'List of user permissions',
+    operationId: 'getUserPermissions',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -45,6 +54,10 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiOperation({
+    summary: 'Get specific user permission',
+    operationId: 'getUserPermission',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -57,6 +70,10 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add user permission',
+    operationId: 'addUserPermission',
+  })
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -72,6 +89,10 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit user permission',
+    operationId: 'editUserPermission',
+  })
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -88,6 +109,10 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete user permission',
+    operationId: 'deleteUserPermission',
+  })
   @Delete('/:id')
   @ApiResponse({
     status: 200,

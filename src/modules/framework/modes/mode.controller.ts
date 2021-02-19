@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { ModesService } from './';
 import { BaseController } from '../../base/base.controller';
 import { Mode } from './mode.entity';
@@ -27,6 +32,10 @@ export class ModesController extends BaseController<Mode> {
     super(modesService);
   }
 
+  @ApiOperation({
+    summary: 'List of modes',
+    operationId: 'getModes',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -40,6 +49,10 @@ export class ModesController extends BaseController<Mode> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiOperation({
+    summary: 'Get specific mode',
+    operationId: 'getMode',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -52,6 +65,10 @@ export class ModesController extends BaseController<Mode> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add mode',
+    operationId: 'addMode',
+  })
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -64,6 +81,10 @@ export class ModesController extends BaseController<Mode> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit mode',
+    operationId: 'editMode',
+  })
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -80,6 +101,10 @@ export class ModesController extends BaseController<Mode> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete mode',
+    operationId: 'deleteMode',
+  })
   @Delete('/:id')
   @ApiResponse({
     status: 200,

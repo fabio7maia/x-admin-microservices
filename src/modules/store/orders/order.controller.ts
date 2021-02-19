@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { StoreOrderProduct, StoreOrderService } from '.';
 import { BaseController } from '../../base/base.controller';
 import { AuthGuard } from '@nestjs/passport';
@@ -26,6 +31,10 @@ export class StoreOrderController extends BaseController<StoreOrderProduct> {
     super(storeOrderService);
   }
 
+  @ApiOperation({
+    summary: 'List of store orders',
+    operationId: 'getStoreOrders',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -42,6 +51,10 @@ export class StoreOrderController extends BaseController<StoreOrderProduct> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiOperation({
+    summary: 'Get specific of store order',
+    operationId: 'getStoreOrder',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -54,6 +67,10 @@ export class StoreOrderController extends BaseController<StoreOrderProduct> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add store order',
+    operationId: 'addStoreOrder',
+  })
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -69,6 +86,10 @@ export class StoreOrderController extends BaseController<StoreOrderProduct> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit store order',
+    operationId: 'editStoreOrder',
+  })
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -85,6 +106,10 @@ export class StoreOrderController extends BaseController<StoreOrderProduct> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete store order',
+    operationId: 'deleteStoreOrder',
+  })
   @Delete('/:id')
   @ApiResponse({
     status: 200,

@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { UsersCompaniesService } from './';
 import { BaseController } from '../../base/base.controller';
 import { UserCompany } from './userCompany.entity';
@@ -27,6 +32,10 @@ export class UsersCompaniesController extends BaseController<UserCompany> {
     super(usersCompaniesService);
   }
 
+  @ApiOperation({
+    summary: 'List of user companies',
+    operationId: 'getUserCompanies',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -43,6 +52,10 @@ export class UsersCompaniesController extends BaseController<UserCompany> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiOperation({
+    summary: 'Get specific user company',
+    operationId: 'getUserCompany',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -55,6 +68,10 @@ export class UsersCompaniesController extends BaseController<UserCompany> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add user company',
+    operationId: 'addUserCompany',
+  })
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -67,6 +84,10 @@ export class UsersCompaniesController extends BaseController<UserCompany> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit user company',
+    operationId: 'editUserCompany',
+  })
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -83,6 +104,10 @@ export class UsersCompaniesController extends BaseController<UserCompany> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete user company',
+    operationId: 'deleteUserCompany',
+  })
   @Delete('/:id')
   @ApiResponse({
     status: 200,

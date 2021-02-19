@@ -9,7 +9,12 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { NewsService } from './';
 import { BaseController } from '../base/base.controller';
@@ -25,6 +30,10 @@ export class NewsController extends BaseController<NewEntity> {
     super(newsService);
   }
 
+  @ApiOperation({
+    summary: 'List of news',
+    operationId: 'getNews',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -38,6 +47,10 @@ export class NewsController extends BaseController<NewEntity> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiOperation({
+    summary: 'Get specific new',
+    operationId: 'getNew',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -50,6 +63,10 @@ export class NewsController extends BaseController<NewEntity> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add new',
+    operationId: 'addNew',
+  })
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Post('/')
@@ -64,6 +81,10 @@ export class NewsController extends BaseController<NewEntity> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit new',
+    operationId: 'editNew',
+  })
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Put('/:id')
@@ -82,6 +103,10 @@ export class NewsController extends BaseController<NewEntity> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete new',
+    operationId: 'deleteNew',
+  })
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
   @Delete('/:id')

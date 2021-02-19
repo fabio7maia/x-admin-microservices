@@ -31,8 +31,8 @@ export class TranslationsController extends BaseController<Translation> {
   }
 
   @ApiOperation({
-    summary: 'Get list of translations',
-    operationId: 'listTranslations',
+    summary: 'List of translations',
+    operationId: 'getTranslations',
   })
   @Get('/')
   @ApiResponse({
@@ -53,7 +53,7 @@ export class TranslationsController extends BaseController<Translation> {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    summary: 'Get data for specific translation',
+    summary: 'Get specific translation',
     operationId: 'getTranslation',
   })
   @Get('/:id')
@@ -71,7 +71,7 @@ export class TranslationsController extends BaseController<Translation> {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    summary: 'Add new translation',
+    summary: 'Add translation',
     operationId: 'addTranslation',
   })
   @Post('/')
@@ -89,7 +89,7 @@ export class TranslationsController extends BaseController<Translation> {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    summary: 'Edit existing translation',
+    summary: 'Edit translation',
     operationId: 'editTranslation',
   })
   @Put('/:id')
@@ -111,7 +111,7 @@ export class TranslationsController extends BaseController<Translation> {
   @ApiBearerAuth()
   @UseGuards(AuthGuard())
   @ApiOperation({
-    summary: 'Delete existing translation',
+    summary: 'Delete translation',
     operationId: 'deleteTranslation',
   })
   @Delete('/:id')

@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { TypesService } from './';
 import { BaseController } from '../../base/base.controller';
 import { Type } from './type.entity';
@@ -27,6 +32,10 @@ export class TypesController extends BaseController<Type> {
     super(typesService);
   }
 
+  @ApiOperation({
+    summary: 'List of types',
+    operationId: 'getTypes',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -40,6 +49,10 @@ export class TypesController extends BaseController<Type> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiOperation({
+    summary: 'Get specific type',
+    operationId: 'getType',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -52,6 +65,10 @@ export class TypesController extends BaseController<Type> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add type',
+    operationId: 'addType',
+  })
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -64,6 +81,10 @@ export class TypesController extends BaseController<Type> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit type',
+    operationId: 'editType',
+  })
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -80,6 +101,10 @@ export class TypesController extends BaseController<Type> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete type',
+    operationId: 'deleteType',
+  })
   @Delete('/:id')
   @ApiResponse({
     status: 200,

@@ -34,7 +34,7 @@ export class CompaniesController extends BaseController<Company> {
 
   @ApiOperation({
     summary: 'Get list of companies',
-    operationId: 'listCompanies',
+    operationId: 'getCompanies',
   })
   @Get('/')
   @ApiResponse({

@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { MenusService } from './';
 import { BaseController } from '../base/base.controller';
@@ -27,6 +32,10 @@ export class MenusController extends BaseController<Menu> {
     super(menusService);
   }
 
+  @ApiOperation({
+    summary: 'List of menus',
+    operationId: 'getMenus',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -43,6 +52,10 @@ export class MenusController extends BaseController<Menu> {
     });
   }
 
+  @ApiOperation({
+    summary: 'Get specific menu',
+    operationId: 'getMenu',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -55,6 +68,10 @@ export class MenusController extends BaseController<Menu> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add menu',
+    operationId: 'addMenu',
+  })
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -67,6 +84,10 @@ export class MenusController extends BaseController<Menu> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit menu',
+    operationId: 'editMenu',
+  })
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -83,6 +104,10 @@ export class MenusController extends BaseController<Menu> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete menu',
+    operationId: 'deleteMenu',
+  })
   @Delete('/:id')
   @ApiResponse({
     status: 200,

@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { FieldsService } from '.';
 import { BaseController } from '../../base/base.controller';
 import { Field } from './field.entity';
@@ -27,10 +32,14 @@ export class FieldsController extends BaseController<Field> {
     super(fieldsService);
   }
 
+  @ApiOperation({
+    summary: 'List of fields',
+    operationId: 'getFields',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
-    description: 'Successful obtained list of companies',
+    description: 'Successful obtained list of fields',
     type: Field,
     isArray: true,
   })
@@ -40,6 +49,10 @@ export class FieldsController extends BaseController<Field> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiOperation({
+    summary: 'Get specific field',
+    operationId: 'getField',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -52,6 +65,10 @@ export class FieldsController extends BaseController<Field> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add field',
+    operationId: 'addField',
+  })
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -64,6 +81,10 @@ export class FieldsController extends BaseController<Field> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit field',
+    operationId: 'editField',
+  })
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -80,6 +101,10 @@ export class FieldsController extends BaseController<Field> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete field',
+    operationId: 'deleteField',
+  })
   @Delete('/:id')
   @ApiResponse({
     status: 200,

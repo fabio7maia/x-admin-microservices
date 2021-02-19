@@ -9,7 +9,12 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiOperation,
+} from '@nestjs/swagger';
 import { FunctionalitiesService } from './';
 import { BaseController } from '../../base/base.controller';
 import { Functionality } from './functionality.entity';
@@ -27,6 +32,10 @@ export class FunctionalitiesController extends BaseController<Functionality> {
     super(functionalitiesService);
   }
 
+  @ApiOperation({
+    summary: 'List of functionalities',
+    operationId: 'getFunctionalities',
+  })
   @Get('/')
   @ApiResponse({
     status: 200,
@@ -43,6 +52,10 @@ export class FunctionalitiesController extends BaseController<Functionality> {
     return super.getListOfRecords(req, order);
   }
 
+  @ApiOperation({
+    summary: 'Get specific functionality',
+    operationId: 'getFunctionality',
+  })
   @Get('/:id')
   @ApiResponse({
     status: 200,
@@ -55,6 +68,10 @@ export class FunctionalitiesController extends BaseController<Functionality> {
     return super.getRecordById(id);
   }
 
+  @ApiOperation({
+    summary: 'Add functionality',
+    operationId: 'addFunctionality',
+  })
   @Post('/')
   @ApiResponse({
     status: 200,
@@ -70,6 +87,10 @@ export class FunctionalitiesController extends BaseController<Functionality> {
     return super.createRecord(req, payload);
   }
 
+  @ApiOperation({
+    summary: 'Edit functionality',
+    operationId: 'editFunctionality',
+  })
   @Put('/:id')
   @ApiResponse({
     status: 200,
@@ -86,6 +107,10 @@ export class FunctionalitiesController extends BaseController<Functionality> {
     return super.updateRecord(req, id, payload);
   }
 
+  @ApiOperation({
+    summary: 'Delete functionality',
+    operationId: 'deleteFunctionality',
+  })
   @Delete('/:id')
   @ApiResponse({
     status: 200,

@@ -34,7 +34,7 @@ export class ConfigurationsController extends BaseController<Configuration> {
 
   @ApiOperation({
     summary: 'Get list of configurations',
-    operationId: 'listConfigurations',
+    operationId: 'getConfigurations',
   })
   @Get('/')
   @ApiResponse({

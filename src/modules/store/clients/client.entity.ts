@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../base/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { StoreApp } from '../apps';
 import { User } from '../../users';
+import { Company } from '../../framework/companies';
 
 @Entity({
   name: 'store_clients',
@@ -10,15 +10,15 @@ import { User } from '../../users';
 export class StoreClient extends BaseEntity {
   @ApiProperty()
   @ManyToOne(
-    () => StoreApp,
-    storeApp => storeApp.id,
+    () => Company,
+    company => company.id,
     {
       cascade: ['insert', 'update'],
     },
   )
-  @JoinColumn({ name: 'storeAppId' })
+  @JoinColumn({ name: 'companyId' })
   @Column({ length: 36, nullable: false })
-  storeAppId: string;
+  companyId: string;
 
   @ApiProperty()
   @ManyToOne(

@@ -15,14 +15,14 @@ export class StoreOrderService extends BaseService<StoreOrderProduct> {
   }
 
   async createOrder(
-    appId: string,
+    companyId: string,
     userId: string,
     products: StoreProduct[],
     address: string,
   ) {
     await getManager().transaction(async transactionalEntityManager => {
       const storeOrder = transactionalEntityManager.create(StoreOrder, {
-        storeAppId: appId,
+        companyId: companyId,
         address,
       });
 

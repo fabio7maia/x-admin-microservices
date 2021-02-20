@@ -53,25 +53,25 @@ export class StoreCategoryController extends BaseController<StoreCategory> {
   }
 
   @ApiOperation({
-    summary: 'List of store categories by App',
-    operationId: 'getStoreCategoriesByApp',
+    summary: 'List of store categories by Company',
+    operationId: 'getStoreCategoriesByCompany',
   })
   @Get('/')
   @ApiResponse({
     status: 200,
-    description: 'Successful obtained list of store categories by App',
+    description: 'Successful obtained list of store categories by Company',
     type: StoreCategory,
     isArray: true,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getCategoriesByApp(
+  async getCategoriesByCompany(
     @Req() req: Request,
     order?: IFieldsOrder,
   ): Promise<StoreCategory[]> {
-    const appId = BaseHelper.getCurrentAppId(req);
+    const companyId = BaseHelper.getCurrentCompanyId(req);
 
-    return super.getListOfRecords(req, order, { storeAppId: appId });
+    return super.getListOfRecords(req, order, { companyId });
   }
 
   @ApiOperation({

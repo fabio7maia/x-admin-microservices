@@ -13,4 +13,8 @@ export class Company extends BaseEntity {
   @ApiProperty()
   @Column({ length: 250 })
   description?: string;
+
+  @ApiProperty()
+  @Column({ length: 250, nullable: false })
+  url: string;
 }

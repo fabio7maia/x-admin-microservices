@@ -1,28 +1,35 @@
 import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../base/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { StoreApp } from '../apps';
 import { StoreProduct } from '../products';
+import { Company } from '../../framework/companies';
 
+export enum StoreOrderStatus {
+  draft = 'draft',
+}
 @Entity({
   name: 'store_orders',
 })
 export class StoreOrder extends BaseEntity {
   @ApiProperty()
   @ManyToOne(
-    () => StoreApp,
-    storeApp => storeApp.id,
+    () => Company,
+    company => company.id,
     {
       cascade: ['insert', 'update'],
     },
   )
-  @JoinColumn({ name: 'storeAppId' })
+  @JoinColumn({ name: 'companyId' })
   @Column({ length: 36, nullable: false })
-  storeAppId: string;
+  companyId: string;
 
   @ApiProperty()
   @Column({ length: 250, nullable: false })
   address: string;
+
+  @ApiProperty()
+  @Column({ nullable: false, default: StoreOrderStatus.draft })
+  status: StoreOrderStatus;
 }
 
 @Entity({

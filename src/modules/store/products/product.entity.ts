@@ -1,7 +1,7 @@
 import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../base/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
-import { StoreApp } from '../apps';
+import { Company } from '../../framework/companies';
 
 @Entity({
   name: 'store_products',
@@ -9,15 +9,15 @@ import { StoreApp } from '../apps';
 export class StoreProduct extends BaseEntity {
   @ApiProperty()
   @ManyToOne(
-    () => StoreApp,
-    storeApp => storeApp.id,
+    () => Company,
+    company => company.id,
     {
       cascade: ['insert', 'update'],
     },
   )
-  @JoinColumn({ name: 'storeAppId' })
+  @JoinColumn({ name: 'companyId' })
   @Column({ length: 36, nullable: false })
-  storeAppId: string;
+  companyId: string;
 
   @ApiProperty()
   @Column({ length: 100, nullable: false })

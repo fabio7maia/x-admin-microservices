@@ -19,7 +19,7 @@ export abstract class BaseHelper {
     });
   };
 
-  static readonly getCurrentAppId = (req: any): string | undefined => {
-    return req.headers['app-id'];
+  static readonly getCurrentCompanyId = (req: any): string | undefined => {
+    return req.headers['companyId'];
   };
 }

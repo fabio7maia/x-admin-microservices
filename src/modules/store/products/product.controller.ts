@@ -52,25 +52,25 @@ export class StoreProductController extends BaseController<StoreProduct> {
   }
 
   @ApiOperation({
-    summary: 'List of store products by App',
-    operationId: 'getStoreProductsByApp',
+    summary: 'List of store products by Company',
+    operationId: 'getStoreProductsByCompany',
   })
   @Get('/')
   @ApiResponse({
     status: 200,
-    description: 'Successful obtained list of store products by App',
+    description: 'Successful obtained list of store products by Company',
     type: StoreProduct,
     isArray: true,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getProductsByApp(
+  async getProductsByCompany(
     @Req() req: Request,
     order?: IFieldsOrder,
   ): Promise<StoreProduct[]> {
-    const appId = BaseHelper.getCurrentAppId(req);
+    const companyId = BaseHelper.getCurrentCompanyId(req);
 
-    return super.getListOfRecords(req, order, { storeAppId: appId });
+    return super.getListOfRecords(req, order, { companyId });
   }
 
   @ApiOperation({

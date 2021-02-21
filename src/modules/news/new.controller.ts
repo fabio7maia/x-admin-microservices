@@ -17,10 +17,10 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { NewsService } from './';
-import { BaseController } from '../base/base.controller';
+import { BaseController } from '../framework/base/base.controller';
 import { NewEntity } from './new.entity';
 import { DeleteResult } from 'typeorm';
-import { IFieldsOrder } from '../base/models/filter.model';
+import { IFieldsOrder } from '../framework/base/models/filter.model';
 import { Request } from 'express';
 
 @Controller('api/news')
@@ -32,7 +32,7 @@ export class NewsController extends BaseController<NewEntity> {
 
   @ApiOperation({
     summary: 'List of news',
-    operationId: 'getNews',
+    operationId: 'listNews',
   })
   @Get('/')
   @ApiResponse({

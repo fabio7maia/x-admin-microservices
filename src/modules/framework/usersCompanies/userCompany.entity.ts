@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { BaseEntity } from '../../base/base.entity';
-import { User } from '../../users';
+import { BaseEntity } from '../base/base.entity';
+import { User } from '../users';
 import { Company } from '../companies';
 import { Permission } from '../permissions';
 import { ApiProperty } from '@nestjs/swagger';

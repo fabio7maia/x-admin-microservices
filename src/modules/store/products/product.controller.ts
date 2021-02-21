@@ -16,12 +16,12 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { StoreProduct, StoreProductService } from '.';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../../framework/base/base.controller';
 import { AuthGuard } from '@nestjs/passport';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../../framework/base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
-import { BaseHelper } from '../../base';
+import { BaseHelper } from '../../framework/base';
 @Controller('api/store/products')
 @ApiTags('Store Products')
 export class StoreProductController extends BaseController<StoreProduct> {
@@ -31,7 +31,7 @@ export class StoreProductController extends BaseController<StoreProduct> {
 
   @ApiOperation({
     summary: 'List of store products',
-    operationId: 'getStoreProducts',
+    operationId: 'listStoreProducts',
   })
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
@@ -53,7 +53,7 @@ export class StoreProductController extends BaseController<StoreProduct> {
 
   @ApiOperation({
     summary: 'List of store products by Company',
-    operationId: 'getStoreProductsByCompany',
+    operationId: 'listStoreProductsByCompany',
   })
   @Get('/')
   @ApiResponse({

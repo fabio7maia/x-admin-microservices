@@ -16,10 +16,10 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { FieldsService } from '.';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Field } from './field.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 
@@ -34,7 +34,7 @@ export class FieldsController extends BaseController<Field> {
 
   @ApiOperation({
     summary: 'List of fields',
-    operationId: 'getFields',
+    operationId: 'listFields',
   })
   @Get('/')
   @ApiResponse({

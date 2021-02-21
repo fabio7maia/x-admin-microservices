@@ -16,9 +16,9 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { StoreClient, StoreClientService } from './';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../../framework/base/base.controller';
 import { AuthGuard } from '@nestjs/passport';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../../framework/base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 
@@ -33,7 +33,7 @@ export class StoreClientController extends BaseController<StoreClient> {
 
   @ApiOperation({
     summary: 'List of store clients',
-    operationId: 'getStoreClients',
+    operationId: 'listStoreClients',
   })
   @Get('/')
   @ApiResponse({

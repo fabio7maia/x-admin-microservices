@@ -17,10 +17,10 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { ConfigurationsService } from './configuration.service';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Configuration } from './configuration.entity';
 import { DeleteResult } from 'typeorm';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 
 @UseGuards(AuthGuard())
@@ -33,8 +33,8 @@ export class ConfigurationsController extends BaseController<Configuration> {
   }
 
   @ApiOperation({
-    summary: 'Get list of configurations',
-    operationId: 'getConfigurations',
+    summary: 'List of configurations',
+    operationId: 'listConfigurations',
   })
   @Get('/')
   @ApiResponse({
@@ -53,7 +53,7 @@ export class ConfigurationsController extends BaseController<Configuration> {
   }
 
   @ApiOperation({
-    summary: 'Get data for specific configuration',
+    summary: 'Get specific configuration',
     operationId: 'getConfiguration',
   })
   @Get('/:id')

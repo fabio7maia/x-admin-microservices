@@ -4,7 +4,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { BaseEntity } from '../../base/base.entity';
+import { BaseEntity } from '../base/base.entity';
 import { Permission } from '../permissions';
 import { ApiProperty } from '@nestjs/swagger';
 

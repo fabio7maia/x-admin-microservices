@@ -16,12 +16,12 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { CompaniesService } from './';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Company } from './company.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { Request } from 'express';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../base/models/filter.model';
 import { DeleteResult } from 'typeorm';
+import { BaseHelper } from '../base';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -33,8 +33,8 @@ export class CompaniesController extends BaseController<Company> {
   }
 
   @ApiOperation({
-    summary: 'Get list of companies',
-    operationId: 'getCompanies',
+    summary: 'List of companies',
+    operationId: 'listCompanies',
   })
   @Get('/')
   @ApiResponse({
@@ -45,12 +45,31 @@ export class CompaniesController extends BaseController<Company> {
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async list(@Req() req: Request, order?: IFieldsOrder): Promise<Company[]> {
+  async list(@Req() req, order?: IFieldsOrder): Promise<Company[]> {
     return super.getListOfRecords(req, order);
   }
 
   @ApiOperation({
-    summary: 'Get data for specific company',
+    summary: 'List of companies by user',
+    operationId: 'listCompaniesByUser',
+  })
+  @Get('/user')
+  @ApiResponse({
+    status: 200,
+    description: 'Successful obtained list of companies by user',
+    type: Company,
+    isArray: true,
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async listByUser(@Req() req, order?: IFieldsOrder): Promise<Company[]> {
+    const userId = BaseHelper.getCurrentUserId(req);
+
+    return this.companiesService.getCompaniesByUser(userId);
+  }
+
+  @ApiOperation({
+    summary: 'Get specific company',
     operationId: 'getCompany',
   })
   @Get('/:id')

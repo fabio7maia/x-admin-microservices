@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getManager } from 'typeorm';
-import { BaseService } from '../../base/base.service';
+import { BaseService } from '../../framework/base/base.service';
 import { StoreProduct } from '../products';
 import { StoreOrder, StoreOrderProduct } from './order.entity';
 

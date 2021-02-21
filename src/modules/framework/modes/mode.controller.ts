@@ -16,10 +16,10 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { ModesService } from './';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Mode } from './mode.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 
@@ -34,7 +34,7 @@ export class ModesController extends BaseController<Mode> {
 
   @ApiOperation({
     summary: 'List of modes',
-    operationId: 'getModes',
+    operationId: 'listModes',
   })
   @Get('/')
   @ApiResponse({

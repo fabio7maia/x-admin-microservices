@@ -16,10 +16,10 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { UsersCompaniesService } from './';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { UserCompany } from './userCompany.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 
@@ -34,7 +34,7 @@ export class UsersCompaniesController extends BaseController<UserCompany> {
 
   @ApiOperation({
     summary: 'List of user companies',
-    operationId: 'getUserCompanies',
+    operationId: 'listUserCompanies',
   })
   @Get('/')
   @ApiResponse({

@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { User } from './user.entity';
-import { ConfigurationsService } from '../framework/configurations';
+import { ConfigurationsService } from '../configurations';
 import { UserServiceInput } from './types';
 import { BaseService } from '../base/base.service';
 

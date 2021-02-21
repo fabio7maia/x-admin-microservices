@@ -1,5 +1,5 @@
 import { Entity, Column, JoinColumn, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../../base/base.entity';
+import { BaseEntity } from '../../framework/base/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { Company } from '../../framework/companies';
 

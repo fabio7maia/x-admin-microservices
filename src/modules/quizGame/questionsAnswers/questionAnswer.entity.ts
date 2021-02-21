@@ -1,5 +1,5 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { BaseEntity } from '../../base';
+import { BaseEntity } from '../../framework/base';
 import { ApiProperty } from '@nestjs/swagger';
 import { QuizQuestion } from '../questions';
 

@@ -2,112 +2,116 @@ import {
   Controller,
   UseGuards,
   Get,
-  Post,
   Req,
+  Query,
+  Post,
   Body,
   Put,
   Delete,
-  Query,
 } from '@nestjs/common';
 import {
+  ApiResponse,
   ApiTags,
   ApiBearerAuth,
-  ApiResponse,
   ApiOperation,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { UsersService, User } from './';
+import { MenusService } from './';
 import { BaseController } from '../base/base.controller';
+import { Menu } from './menu.entity';
 import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
-@Controller('api/users')
-@ApiTags('Users')
-export class UsersController extends BaseController<User> {
-  constructor(private readonly usersService: UsersService) {
-    super(usersService);
+@Controller('api/menus')
+@ApiTags('Menus')
+export class MenusController extends BaseController<Menu> {
+  constructor(private readonly menusService: MenusService) {
+    super(menusService);
   }
 
-  @Get('/')
   @ApiOperation({
-    summary: 'List of users',
-    operationId: 'getUsers',
+    summary: 'List of menus',
+    operationId: 'listMenus',
   })
+  @Get('/')
   @ApiResponse({
     status: 200,
-    description: 'Successful obtained list of users',
-    type: User,
+    description: 'Successful obtained list of menus',
+    type: Menu,
     isArray: true,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async list(@Req() req: Request, order?: IFieldsOrder): Promise<User[]> {
-    return super.getListOfRecords(req, order);
+  async list(@Req() req: Request, order?: IFieldsOrder): Promise<Menu[]> {
+    return await super.getListOfRecords(req, {
+      parentMenuId: 'ASC',
+      weight: 'ASC',
+    });
   }
 
-  @Get('/:id')
   @ApiOperation({
-    summary: 'Get specific user',
-    operationId: 'getUser',
+    summary: 'Get specific menu',
+    operationId: 'getMenu',
   })
+  @Get('/:id')
   @ApiResponse({
     status: 200,
-    description: 'Successful obtained specific user',
-    type: User,
+    description: 'Successful obtained specific menu',
+    type: Menu,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async get(@Query('id') id: string): Promise<User> {
+  async get(@Query('id') id: string): Promise<Menu> {
     return super.getRecordById(id);
   }
 
-  @Post('/')
   @ApiOperation({
-    summary: 'Add user',
-    operationId: 'addUser',
+    summary: 'Add menu',
+    operationId: 'addMenu',
   })
+  @Post('/')
   @ApiResponse({
     status: 200,
-    description: 'Successful added user',
-    type: User,
+    description: 'Successful added menu',
+    type: Menu,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async create(@Req() req, @Body() payload: User): Promise<User> {
+  async create(@Req() req, @Body() payload: Menu): Promise<Menu> {
     return super.createRecord(req, payload);
   }
 
-  @Put('/:id')
   @ApiOperation({
-    summary: 'Edit user',
-    operationId: 'editUser',
+    summary: 'Edit menu',
+    operationId: 'editMenu',
   })
+  @Put('/:id')
   @ApiResponse({
     status: 200,
-    description: 'Successful edited user',
-    type: User,
+    description: 'Successful edited menu',
+    type: Menu,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async update(
     @Req() req,
     @Query('id') id: string,
-    @Body() payload: User,
-  ): Promise<User> {
+    @Body() payload: Menu,
+  ): Promise<Menu> {
     return super.updateRecord(req, id, payload);
   }
 
-  @Delete('/:id')
   @ApiOperation({
-    summary: 'Delete user',
-    operationId: 'deleteUser',
+    summary: 'Delete menu',
+    operationId: 'deleteMenu',
   })
+  @Delete('/:id')
   @ApiResponse({
     status: 200,
-    description: 'Successful deleted user',
+    description: 'Successful deleted menu',
     type: DeleteResult,
   })
   @ApiResponse({ status: 400, description: 'Bad Request' })

@@ -17,10 +17,10 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { EntitiesService, Entity } from './';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { FieldsService } from '../fields';
 import { EntitiesGetModelDataServiceOutput } from './types/EntitiesGetModelData';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 
@@ -64,8 +64,8 @@ export class EntitiesController extends BaseController<Entity> {
   }
 
   @ApiOperation({
-    summary: 'Get list of entities',
-    operationId: 'getEntities',
+    summary: 'List of entities',
+    operationId: 'listEntities',
   })
   @Get('/')
   @ApiResponse({
@@ -81,7 +81,7 @@ export class EntitiesController extends BaseController<Entity> {
   }
 
   @ApiOperation({
-    summary: 'Get data for specific entity',
+    summary: 'Get specific entity',
     operationId: 'getEntity',
   })
   @Get('/:id')

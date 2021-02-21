@@ -18,7 +18,7 @@ import {
 import { StorePurchaseService } from '.';
 import { AuthGuard } from '@nestjs/passport';
 import { StorePurchaseInput, StorePurchaseOutput } from './purchase.models';
-import { BaseHelper } from '../../base';
+import { BaseHelper } from '../../framework/base';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()

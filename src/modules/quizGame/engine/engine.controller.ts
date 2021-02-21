@@ -19,8 +19,8 @@ import {
   QuizEngineDoAnswerOutput,
   QuizEngineGetQuizGameDataOutput,
 } from './engine.types';
-import { BaseHelper } from '../../base';
-import { JwtAuthGuardNoException } from '../../auth';
+import { BaseHelper } from '../../framework/base';
+import { JwtAuthGuardNoException } from '../../framework/auth';
 
 @UseGuards(JwtAuthGuardNoException)
 @ApiBearerAuth()
@@ -30,8 +30,8 @@ export class QuizzesEngineController {
   constructor(private readonly quizzesEngineService: QuizzesEngineService) {}
 
   @ApiOperation({
-    summary: 'Get data of quiz game',
-    operationId: 'getQuizGame',
+    summary: 'List of quiz game',
+    operationId: 'listQuizGame',
   })
   @Get('/:quizCode?')
   @ApiResponse({

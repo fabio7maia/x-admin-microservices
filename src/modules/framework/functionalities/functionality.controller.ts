@@ -16,10 +16,10 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { FunctionalitiesService } from './';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { Functionality } from './functionality.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 
@@ -34,7 +34,7 @@ export class FunctionalitiesController extends BaseController<Functionality> {
 
   @ApiOperation({
     summary: 'List of functionalities',
-    operationId: 'getFunctionalities',
+    operationId: 'listFunctionalities',
   })
   @Get('/')
   @ApiResponse({

@@ -32,7 +32,7 @@ export class TranslationsController extends BaseController<Translation> {
 
   @ApiOperation({
     summary: 'List of translations',
-    operationId: 'getTranslations',
+    operationId: 'listTranslations',
   })
   @Get('/')
   @ApiResponse({

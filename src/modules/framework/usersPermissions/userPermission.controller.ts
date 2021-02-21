@@ -16,10 +16,10 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { UsersPermissionsService } from './';
-import { BaseController } from '../../base/base.controller';
+import { BaseController } from '../base/base.controller';
 import { UserPermission } from './userPermission.entity';
 import { AuthGuard } from '@nestjs/passport';
-import { IFieldsOrder } from '../../base/models/filter.model';
+import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 
@@ -36,7 +36,7 @@ export class UsersPermissionsController extends BaseController<UserPermission> {
 
   @ApiOperation({
     summary: 'List of user permissions',
-    operationId: 'getUserPermissions',
+    operationId: 'listUserPermissions',
   })
   @Get('/')
   @ApiResponse({

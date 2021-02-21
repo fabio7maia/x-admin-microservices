@@ -1,11 +1,5 @@
 import { Exclude } from 'class-transformer';
-import {
-  Entity,
-  Column,
-  ObjectIdColumn,
-  ObjectID,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { PasswordTransformer } from './password.transformer';
 import { BaseEntity } from '../base/base.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';

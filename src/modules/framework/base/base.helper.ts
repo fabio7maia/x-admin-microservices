@@ -1,3 +1,5 @@
+import { PuzzleFrameworkContextHeader } from './base.types';
+
 export abstract class BaseHelper {
   static readonly isAuthenticatedUser = (req: {
     user?: { id: string };
@@ -20,6 +22,12 @@ export abstract class BaseHelper {
   };
 
   static readonly getCurrentCompanyId = (req: any): string | undefined => {
-    return req.headers['companyId'];
+    const pzlFwCtxValue = req.headers['pzl-fw-ctx'];
+
+    const pzlFwCtx: PuzzleFrameworkContextHeader | undefined = pzlFwCtxValue
+      ? JSON.parse(pzlFwCtxValue)
+      : undefined;
+
+    return pzlFwCtx?.companyId;
   };
 }

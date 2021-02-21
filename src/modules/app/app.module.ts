@@ -3,17 +3,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './../auth';
 import { NewsModule } from '../news';
-import { MenusModule } from '../menus';
-import { UsersModule } from '../users';
-import { TranslationsModule } from '../translations';
 import { FrameworkModule } from '../framework';
 import { QuizGameModule } from '../quizGame';
 import { StoreModule } from '../store';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -31,11 +29,7 @@ import { StoreModule } from '../store';
       },
     }),
     ConfigModule.forRoot(),
-    AuthModule,
     NewsModule,
-    MenusModule,
-    UsersModule,
-    TranslationsModule,
     FrameworkModule,
     QuizGameModule,
     StoreModule,

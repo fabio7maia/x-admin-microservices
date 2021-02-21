@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Configuration } from './configuration.entity';
-import { BaseService } from '../../base/base.service';
+import { BaseService } from '../base/base.service';
 
 @Injectable()
 export class ConfigurationsService extends BaseService<Configuration> {

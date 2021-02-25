@@ -44,8 +44,8 @@ export class StorePurchaseController {
     @Body() payload: StorePurchaseInput,
   ): Promise<StorePurchaseOutput> {
     const userId = BaseHelper.getCurrentUserId(req);
-    const appId = BaseHelper.getCurrentAppId(req);
+    const companyId = BaseHelper.getCurrentCompanyId(req);
 
-    return this.storePurchaseService.purchase(appId, userId, payload);
+    return this.storePurchaseService.purchase(companyId, userId, payload);
   }
 }

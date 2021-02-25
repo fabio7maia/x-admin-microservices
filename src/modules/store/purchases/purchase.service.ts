@@ -7,7 +7,7 @@ export class StorePurchaseService {
   constructor(private readonly storeOrderService: StoreOrderService) {}
 
   private async checkStocks(
-    appId: string,
+    companyId: string,
     userId: string,
     input: StorePurchaseInput,
   ): Promise<boolean> {
@@ -15,17 +15,22 @@ export class StorePurchaseService {
   }
 
   async purchase(
-    appId: string,
+    companyId: string,
     userId: string,
     input: StorePurchaseInput,
   ): Promise<StorePurchaseOutput> {
     const { products, address } = input;
 
     // check stocks
-    this.checkStocks(appId, userId, input);
+    this.checkStocks(companyId, userId, input);
 
     // create order and associate products
-    await this.storeOrderService.createOrder(appId, userId, products, address);
+    await this.storeOrderService.createOrder(
+      companyId,
+      userId,
+      products,
+      address,
+    );
 
     return input;
   }

@@ -24,6 +24,12 @@ import { PassportModule } from '@nestjs/passport';
           password: configService.get('DATABASE_PASSWORD'),
           database: configService.get('DATABASE_DATABASE'),
           entities: [__dirname + './../**/**.entity{.ts,.js}'],
+          migrationsTableName: 'migrations',
+          migrations: ['src/migrations/*.ts'],
+          migrationsRun: true,
+          cli: {
+            migrationsDir: 'migration',
+          },
           synchronize: configService.get('APP_ENV') === 'dev',
         } as TypeOrmModuleAsyncOptions;
       },

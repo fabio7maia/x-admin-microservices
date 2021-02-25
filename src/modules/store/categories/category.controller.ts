@@ -56,7 +56,7 @@ export class StoreCategoryController extends BaseController<StoreCategory> {
     summary: 'List of store categories by Company',
     operationId: 'listStoreCategoriesByCompany',
   })
-  @Get('/')
+  @Get('/company')
   @ApiResponse({
     status: 200,
     description: 'Successful obtained list of store categories by Company',

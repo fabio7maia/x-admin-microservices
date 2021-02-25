@@ -24,12 +24,12 @@ export class StoreProduct extends BaseEntity {
   name: string;
 
   @ApiProperty()
-  @Column({ length: 250 })
+  @Column({ length: 250, default: null })
   description?: string;
 
   @ApiProperty()
   @Column({ length: 250 })
-  image?: string;
+  image: string;
 
   @ApiProperty()
   @Column({ nullable: false })

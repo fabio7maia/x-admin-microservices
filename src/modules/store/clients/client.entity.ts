@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn, Unique } from 'typeorm';
 import { BaseEntity } from '../../framework/base/base.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from '../../framework/users';
@@ -7,6 +7,7 @@ import { Company } from '../../framework/companies';
 @Entity({
   name: 'store_clients',
 })
+@Unique(['companyId', 'userId'])
 export class StoreClient extends BaseEntity {
   @ApiProperty()
   @ManyToOne(

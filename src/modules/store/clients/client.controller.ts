@@ -21,6 +21,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { IFieldsOrder } from '../../framework/base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
+import { BaseHelper } from '../../framework/base';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -49,6 +50,28 @@ export class StoreClientController extends BaseController<StoreClient> {
     order?: IFieldsOrder,
   ): Promise<StoreClient[]> {
     return super.getListOfRecords(req, order);
+  }
+
+  @ApiOperation({
+    summary: 'List of store clients by company',
+    operationId: 'listStoreClientsByCompany',
+  })
+  @Get('/company')
+  @ApiResponse({
+    status: 200,
+    description: 'Successful obtained list of store clients by company',
+    type: StoreClient,
+    isArray: true,
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async listByCompany(
+    @Req() req: Request,
+    order?: IFieldsOrder,
+  ): Promise<StoreClient[]> {
+    const companyId = BaseHelper.getCurrentCompanyId(req);
+
+    return super.getListOfRecords(req, order, { companyId });
   }
 
   @ApiOperation({

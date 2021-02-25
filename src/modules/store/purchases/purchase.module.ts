@@ -1,17 +1,12 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { StoreOrder, StoreOrderProduct } from './order.entity';
-import { StoreOrderService } from './order.service';
-import { StoreOrderController } from './order.controller';
 import { PassportModule } from '@nestjs/passport';
+import { StorePurchaseService } from './purchase.service';
+import { StorePurchaseController } from './purchase.controller';
 
 @Module({
-  imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
-    TypeOrmModule.forFeature([StoreOrder, StoreOrderProduct]),
-  ],
-  exports: [StoreOrderService],
-  controllers: [StoreOrderController],
-  providers: [StoreOrderService],
+  imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
+  exports: [StorePurchaseService],
+  controllers: [StorePurchaseController],
+  providers: [StorePurchaseService],
 })
-export class StoreOrdersModule {}
+export class StorePurchasesModule {}

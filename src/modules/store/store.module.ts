@@ -4,6 +4,7 @@ import { StoreCategoriesModule } from './categories';
 import { StoreClientsModule } from './clients';
 import { StoreOrdersModule } from './orders';
 import { StoreProductsModule } from './products';
+import { StorePurchasesModule } from './purchases';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { StoreProductsModule } from './products';
     StoreClientsModule,
     StoreOrdersModule,
     StoreProductsModule,
+    StorePurchasesModule,
   ],
   exports: [],
   controllers: [],

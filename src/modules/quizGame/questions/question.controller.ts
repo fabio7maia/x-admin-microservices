@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { QuizzesQuestionsService } from './question.service';
-import { BaseController, IFieldsOrder } from '../../base';
+import { BaseController, IFieldsOrder } from '../../framework/base';
 import { QuizQuestion } from './question.entity';
 import { DeleteResult } from 'typeorm';
 import { Request } from 'express';

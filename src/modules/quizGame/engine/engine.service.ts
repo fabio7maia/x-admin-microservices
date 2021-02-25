@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
-import { BaseHelper } from '../../base';
+import { BaseHelper } from '../../framework/base';
 import { getRepository } from 'typeorm';
 import { QuizQuestion } from '../questions';
 import {

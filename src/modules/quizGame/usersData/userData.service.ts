@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { QuizUserData } from './userData.entity';
-import { BaseService } from '../../base';
+import { BaseService } from '../../framework/base';
 
 @Injectable()
 export class QuizzesUsersDataService extends BaseService<QuizUserData> {

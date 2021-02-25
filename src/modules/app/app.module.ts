@@ -3,26 +3,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigurationsModule } from './../configurations';
-import { AuthModule } from './../auth';
 import { NewsModule } from '../news';
-import { MenusModule } from '../menus';
-import { CompaniesModule } from '../companies';
-import { FunctionalitiesModule } from '../functionalities';
-import { PermissionsModule } from '../permissions';
-import { UsersCompaniesModule } from '../usersCompanies';
-import { UsersPermissionsModule } from '../usersPermissions';
-import { EntitiesModule } from '../entities';
-import { TypesModule } from '../types';
-import { ModesModule } from '../modes';
-import { FieldsModule } from '../fields';
-import { EntitiesRecordsModule } from '../entitiesRecords';
-import { UsersModule } from '../users';
-import { TranslationsModule } from '../translations';
+import { FrameworkModule } from '../framework';
 import { QuizGameModule } from '../quizGame';
+import { StoreModule } from '../store';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt' }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -35,28 +24,21 @@ import { QuizGameModule } from '../quizGame';
           password: configService.get('DATABASE_PASSWORD'),
           database: configService.get('DATABASE_DATABASE'),
           entities: [__dirname + './../**/**.entity{.ts,.js}'],
+          migrationsTableName: 'migrations',
+          migrations: ['src/migrations/*.ts'],
+          migrationsRun: true,
+          cli: {
+            migrationsDir: 'migration',
+          },
           synchronize: configService.get('APP_ENV') === 'dev',
         } as TypeOrmModuleAsyncOptions;
       },
     }),
     ConfigModule.forRoot(),
-    ConfigurationsModule,
-    AuthModule,
     NewsModule,
-    MenusModule,
-    CompaniesModule,
-    FunctionalitiesModule,
-    PermissionsModule,
-    UsersCompaniesModule,
-    UsersPermissionsModule,
-    EntitiesModule,
-    TypesModule,
-    ModesModule,
-    FieldsModule,
-    EntitiesRecordsModule,
-    UsersModule,
-    TranslationsModule,
+    FrameworkModule,
     QuizGameModule,
+    StoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],

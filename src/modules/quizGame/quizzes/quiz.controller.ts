@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { QuizzesService } from './quiz.service';
-import { BaseController, IFieldsOrder } from '../../base';
+import { BaseController, IFieldsOrder } from '../../framework/base';
 import { Quiz } from './quiz.entity';
 import { DeleteResult } from 'typeorm';
 import { Request } from 'express';
@@ -32,7 +32,7 @@ export class QuizzesController extends BaseController<Quiz> {
   }
 
   @ApiOperation({
-    summary: 'Get list of quizzes',
+    summary: 'List of quizzes',
     operationId: 'listQuizzes',
   })
   @Get('/')

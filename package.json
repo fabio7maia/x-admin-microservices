@@ -22,7 +22,8 @@
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "webpack": "webpack --config webpack.config.js",
-    "ts-typeorm": "ts-node ./node_modules/typeorm/cli.js"
+    "ts-typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "do-migrations": "npm run ts-typeorm migration:run"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.6",
@@ -56,7 +57,7 @@
     "rxjs": "^6.5.2",
     "socket.io": "^2.4.1",
     "swagger-ui-express": "^3.0.10",
-    "typeorm": "^0.2.17",
+    "typeorm": "^0.2.31",
     "typescript": "^3.5.1"
   },
   "devDependencies": {

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, ObjectID } from 'typeorm';
 
 import { NewEntity } from './new.entity';
-import { BaseService } from '../base/base.service';
+import { BaseService } from '../framework/base/base.service';
 
 @Injectable()
 export class NewsService extends BaseService<NewEntity> {

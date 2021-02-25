@@ -23,10 +23,10 @@ import { PassportModule } from '@nestjs/passport';
           username: configService.get('DATABASE_USERNAME'),
           password: configService.get('DATABASE_PASSWORD'),
           database: configService.get('DATABASE_DATABASE'),
-          entities: [__dirname + './../**/**.entity{.ts,.js}'],
+          entities: [__dirname + './../**/**.entity.ts'],
           migrationsTableName: 'migrations',
-          migrations: ['src/migrations/*.{ts,js}'],
-          migrationsRun: true,
+          migrations: ['src/migrations/*.{ts}'],
+          migrationsRun: configService.get('APP_ENV') === 'dev',
           cli: {
             migrationsDir: 'migration',
           },

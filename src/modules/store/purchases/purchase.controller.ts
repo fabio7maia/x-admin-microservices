@@ -15,7 +15,7 @@ import {
   ApiResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { StorePurchaseService } from '.';
+import { StorePurchaseService } from './purchase.service';
 import { AuthGuard } from '@nestjs/passport';
 import { StorePurchaseInput, StorePurchaseOutput } from './purchase.models';
 import { BaseHelper } from '../../framework/base';

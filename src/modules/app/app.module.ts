@@ -25,7 +25,7 @@ import { PassportModule } from '@nestjs/passport';
           database: configService.get('DATABASE_DATABASE'),
           entities: [__dirname + './../**/**.entity{.ts,.js}'],
           migrationsTableName: 'migrations',
-          migrations: ['src/migrations/*.ts'],
+          migrations: ['src/migrations/*.{ts,js}'],
           migrationsRun: true,
           cli: {
             migrationsDir: 'migration',

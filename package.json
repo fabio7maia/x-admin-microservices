@@ -22,7 +22,7 @@
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "webpack": "webpack --config webpack.config.js",
-    "ts-typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "do-migrations": "npm run ts-typeorm migration:run"
   },
   "dependencies": {

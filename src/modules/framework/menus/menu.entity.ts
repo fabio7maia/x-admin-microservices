@@ -11,12 +11,20 @@ export class Menu extends BaseEntity {
   name: string;
 
   @ApiProperty()
+  @Column({ length: 50, nullable: false, unique: true })
+  code: string;
+
+  @ApiProperty()
   @Column({ length: 250 })
   description?: string;
 
   @ApiProperty()
+  @Column({ length: 50 })
+  icon?: string;
+
+  @ApiProperty()
   @Column({ length: 100, nullable: false })
-  routeUrl: string;
+  routeUrl?: string;
 
   @ApiProperty()
   @ManyToOne(

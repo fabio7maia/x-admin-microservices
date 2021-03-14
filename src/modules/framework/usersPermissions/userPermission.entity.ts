@@ -40,15 +40,15 @@ export class UserPermission extends BaseEntity {
   @Column({ length: 36, nullable: false })
   permissionId: string;
 
-  @ApiProperty()
-  @ManyToOne(
-    () => Functionality,
-    functionality => functionality.id,
-    {
-      cascade: ['insert', 'update'],
-    },
-  )
-  @JoinColumn({ name: 'functionalityId' })
-  @Column({ length: 36, nullable: false })
-  functionalityId: string;
+  // @ApiProperty()
+  // @ManyToOne(
+  //   () => Functionality,
+  //   functionality => functionality.id,
+  //   {
+  //     cascade: ['insert', 'update'],
+  //   },
+  // )
+  // @JoinColumn({ name: 'functionalityId' })
+  // @Column({ length: 36, nullable: false })
+  // functionalityId: string;
 }

@@ -18,10 +18,13 @@ export const setupSwagger = (app: INestApplication) => {
     .setVersion(SWAGGER_API_CURRENT_VERSION)
     .addServer(SWAGGER_API_SCHEME_HTTP)
     .addServer(SWAGGER_API_SCHEME_HTTPS)
-    .addBearerAuth(
-      { name: SWAGGER_API_AUTH_NAME, type: 'http' },
-      SWAGGER_API_AUTH_LOCATION,
-    )
+    .addBearerAuth({
+      name: SWAGGER_API_AUTH_NAME,
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      in: SWAGGER_API_AUTH_LOCATION,
+    })
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(SWAGGER_API_ROOT, app, document);

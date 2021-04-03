@@ -4,11 +4,13 @@ import { StoreProduct } from './product.entity';
 import { StoreProductService } from './product.service';
 import { StoreProductController } from './product.controller';
 import { PassportModule } from '@nestjs/passport';
+import { AssetsStorageModule } from '../../assetsStorage';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     TypeOrmModule.forFeature([StoreProduct]),
+    AssetsStorageModule,
   ],
   exports: [StoreProductService],
   controllers: [StoreProductController],

@@ -22,6 +22,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { IFieldsOrder } from '../base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
+import { BaseHelper } from '../base';
 
 @UseGuards(AuthGuard())
 @ApiBearerAuth()
@@ -47,6 +48,25 @@ export class PermissionsController extends BaseController<Permission> {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async list(@Req() req: Request, order?: IFieldsOrder): Promise<Permission[]> {
     return super.getListOfRecords(req, order);
+  }
+
+  @ApiOperation({
+    summary: 'List of permissions by user',
+    operationId: 'listPermissionsByUser',
+  })
+  @Get('/user')
+  @ApiResponse({
+    status: 200,
+    description: 'Successful obtained list of permissions by user',
+    type: Permission,
+    isArray: true,
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  async listByUser(@Req() req, order?: IFieldsOrder): Promise<Permission[]> {
+    const userId = BaseHelper.getCurrentUserId(req);
+
+    return this.permissionsService.getPermissionsByUser(userId);
   }
 
   @ApiOperation({

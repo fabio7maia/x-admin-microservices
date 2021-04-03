@@ -15,20 +15,20 @@ import {
   ApiResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { StoreProduct, StoreProductService } from '.';
 import { BaseController } from '../../framework/base/base.controller';
 import { AuthGuard } from '@nestjs/passport';
 import { IFieldsOrder } from '../../framework/base/models/filter.model';
 import { Request } from 'express';
 import { DeleteResult } from 'typeorm';
 import { BaseHelper } from '../../framework/base';
+import { StoreProduct } from './product.entity';
+import { StoreProductService } from './product.service';
 @Controller('api/store/products')
 @ApiTags('Store Products')
 export class StoreProductController extends BaseController<StoreProduct> {
   constructor(private readonly storeProductService: StoreProductService) {
     super(storeProductService);
   }
-
   @ApiOperation({
     summary: 'List of store products',
     operationId: 'listStoreProducts',
@@ -50,7 +50,6 @@ export class StoreProductController extends BaseController<StoreProduct> {
   ): Promise<StoreProduct[]> {
     return super.getListOfRecords(req, order);
   }
-
   @ApiOperation({
     summary: 'List of store products by Company',
     operationId: 'listStoreProductsByCompany',
@@ -69,10 +68,8 @@ export class StoreProductController extends BaseController<StoreProduct> {
     order?: IFieldsOrder,
   ): Promise<StoreProduct[]> {
     const companyId = BaseHelper.getCurrentCompanyId(req);
-
     return super.getListOfRecords(req, order, { companyId });
   }
-
   @ApiOperation({
     summary: 'Get specific store product',
     operationId: 'getStoreProduct',
@@ -90,7 +87,6 @@ export class StoreProductController extends BaseController<StoreProduct> {
   async get(@Query('id') id: string): Promise<StoreProduct> {
     return super.getRecordById(id);
   }
-
   @ApiOperation({
     summary: 'Add store product',
     operationId: 'addStoreProduct',
@@ -109,9 +105,10 @@ export class StoreProductController extends BaseController<StoreProduct> {
     @Req() req,
     @Body() payload: StoreProduct,
   ): Promise<StoreProduct> {
-    return super.createRecord(req, payload);
-  }
+    console.log('addStoreProduct', { payload });
 
+    return this.storeProductService.createProduct(req, payload);
+  }
   @ApiOperation({
     summary: 'Edit store product',
     operationId: 'editStoreProduct',
@@ -131,9 +128,8 @@ export class StoreProductController extends BaseController<StoreProduct> {
     @Query('id') id: string,
     @Body() payload: StoreProduct,
   ): Promise<StoreProduct> {
-    return super.updateRecord(req, id, payload);
+    return this.storeProductService.updateProduct(req, id, payload);
   }
-
   @ApiOperation({
     summary: 'Delete store product',
     operationId: 'deleteStoreProduct',
@@ -149,6 +145,6 @@ export class StoreProductController extends BaseController<StoreProduct> {
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   async delete(@Query('id') id: string): Promise<DeleteResult> {
-    return super.deleteRecord(id);
+    return this.storeProductService.deleteProduct(id);
   }
 }

@@ -46,8 +46,10 @@ export class StoreProductService extends BaseService<StoreProduct> {
     payload = {
       ...product,
       ...payload,
+      image: product.image,
+      companyId: BaseHelper.getCurrentCompanyId(req),
     };
-    return this.create(BaseHelper.getCurrentUserId(req), payload);
+    return this.update(BaseHelper.getCurrentUserId(req), id, payload);
   };
 
   deleteProduct = async (id: string): Promise<DeleteResult> => {

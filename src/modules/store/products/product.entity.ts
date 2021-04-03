@@ -41,6 +41,7 @@ export class StoreProduct extends BaseEntity {
   @Column({ length: 250, default: null })
   description?: string;
 
+  @ApiProperty()
   @Column({ length: 250, nullable: false })
   image: string;
 

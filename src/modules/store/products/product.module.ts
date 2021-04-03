@@ -5,12 +5,14 @@ import { StoreProductService } from './product.service';
 import { StoreProductController } from './product.controller';
 import { PassportModule } from '@nestjs/passport';
 import { AssetsStorageModule } from '../../assetsStorage';
+import { RedisCacheModule } from '../../redisCache';
 
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     TypeOrmModule.forFeature([StoreProduct]),
     AssetsStorageModule,
+    RedisCacheModule,
   ],
   exports: [StoreProductService],
   controllers: [StoreProductController],

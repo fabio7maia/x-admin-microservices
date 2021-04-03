@@ -23,10 +23,14 @@ import { DeleteResult } from 'typeorm';
 import { BaseHelper } from '../../framework/base';
 import { StoreProduct } from './product.entity';
 import { StoreProductService } from './product.service';
+import { RedisCacheService } from '../../redisCache';
 @Controller('api/store/products')
 @ApiTags('Store Products')
 export class StoreProductController extends BaseController<StoreProduct> {
-  constructor(private readonly storeProductService: StoreProductService) {
+  constructor(
+    private readonly storeProductService: StoreProductService,
+    private readonly redisCacheService: RedisCacheService,
+  ) {
     super(storeProductService);
   }
   @ApiOperation({
@@ -50,6 +54,7 @@ export class StoreProductController extends BaseController<StoreProduct> {
   ): Promise<StoreProduct[]> {
     return super.getListOfRecords(req, order);
   }
+
   @ApiOperation({
     summary: 'List of store products by Company',
     operationId: 'listStoreProductsByCompany',
@@ -67,7 +72,11 @@ export class StoreProductController extends BaseController<StoreProduct> {
     @Req() req: Request,
     order?: IFieldsOrder,
   ): Promise<StoreProduct[]> {
-    const companyId = BaseHelper.getCurrentCompanyId(req);
+    const companyId = await BaseHelper.getCurrentCompanyIdBasedOnOriginUrl(
+      req,
+      this.redisCacheService,
+    );
+
     return super.getListOfRecords(req, order, { companyId });
   }
   @ApiOperation({
@@ -105,8 +114,6 @@ export class StoreProductController extends BaseController<StoreProduct> {
     @Req() req,
     @Body() payload: StoreProduct,
   ): Promise<StoreProduct> {
-    console.log('addStoreProduct', { payload });
-
     return this.storeProductService.createProduct(req, payload);
   }
   @ApiOperation({

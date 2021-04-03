@@ -45,14 +45,13 @@ export class AssetsStorageService {
     url: string,
     file: FileUpload,
   ): Promise<AssetStorageSuccessResponse | AssetStorageErrorResponse> {
-    const fromPublicId = this.getPublicId(url);
-    const res = await this.uploadImage(file);
+    const publicId = this.getPublicId(url);
+    const base64 = file.base64;
 
     return new Promise((resolve, reject) => {
-      v2.uploader.rename(
-        fromPublicId,
-        res.identifier,
-        { invalidate: true },
+      v2.uploader.upload(
+        base64,
+        { invalidate: true, overwrite: true, public_id: publicId },
         (error: UploadApiErrorResponse, result: UploadApiResponse) => {
           if (error) {
             return reject({

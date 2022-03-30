@@ -1,9 +1,15 @@
 {
-  "name": "@puzzle-framework/microservices",
-  "version": "1.4.0",
-  "description": "Puzzle framework microservices",
-  "author": "Puzzle Framework (puzzleframework@gmail.com)",
-  "license": "ISC",
+  "name": "@x-admin/microservices",
+  "version": "0.1.0",
+  "description": "X Admin microservices",
+  "author": "Fábio Maia (fabio7maia@gmail.com)",
+  "license": "MIT",
+  "main": "index.js",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabio7maia/x-admin-microservices.git"
+  },
   "scripts": {
     "test-deploy": "npm run build && npm run start",
     "heroku-prebuild": "npm install",
@@ -92,11 +98,5 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "main": "index.js",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/puzzle-framework/shared-components-react-js.git"
   }
 }

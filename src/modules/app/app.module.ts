@@ -52,7 +52,6 @@ import { TransformHelper } from '../../helpers';
           migrationsTableName: 'migrations',
           migrations: ['src/migrations/*.js'],
           migrationsRun: configService.get('APP_ENV') === 'dev',
-          extra: { ssl: true },
           cli: {
             migrationsDir: 'migration',
           },

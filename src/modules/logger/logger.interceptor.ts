@@ -13,11 +13,19 @@ export class LoggerInterceptor implements NestInterceptor {
   constructor(private readonly logger: LoggerService) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    this.logger.log('Before...');
-
-    const now = Date.now();
+    const start = Date.now();
     return next.handle().pipe(
-      tap(() => this.logger.log(`After... ${Date.now() - now}ms`)),
+      tap(() => {
+        const end = Date.now();
+
+        const req: Request = context.switchToHttp().getRequest();
+
+        this.logger.log(
+          `[${start.toString()} - ${end.toString()} > (${end - start}ms)] > ${
+            req.url
+          } > ${JSON.stringify(req.body)}`,
+        );
+      }),
       catchError(err => {
         this.logger.error(err);
 

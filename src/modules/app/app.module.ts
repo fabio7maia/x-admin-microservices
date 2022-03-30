@@ -1,17 +1,22 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  HttpModule,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
+import { TerminusModule } from '@nestjs/terminus';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { NewsModule } from '../news';
 import { FrameworkModule } from '../framework';
 import { QuizGameModule } from '../quizGame';
 import { StoreModule } from '../store';
-
 import { LoggerMiddleware, LoggerModule } from '../logger';
 import { TransformHelper } from '../../helpers';
-
+import { RedisCacheModule } from '../redisCache';
 @Module({
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
@@ -19,6 +24,8 @@ import { TransformHelper } from '../../helpers';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
+        const clearDbUrl: string =
+          configService.get('CLEARDB_DATABASE_URL') || '';
         const dbUrl: string = configService.get('DATABASE_URL') || '';
         let dbType: string = configService.get('DATABASE_TYPE');
         let dbHost: string = configService.get('DATABASE_HOST');
@@ -29,13 +36,18 @@ import { TransformHelper } from '../../helpers';
 
         if (dbUrl.length) {
           const res = TransformHelper.extractValue(
-            dbUrl,
-            '{{dbType}}://{{dbUsername}}:{{dbPassword}}@{{dbHost}}:{{dbPort}}/{{dbDatabase}}',
+            clearDbUrl,
+            '{{dbType}}://{{dbUsername}}:{{dbPassword}}@{{dbHost}}/{{dbDatabase}}?reconnect=true',
           );
+
+          // const res = TransformHelper.extractValue(
+          //   dbUrl,
+          //   '{{dbType}}://{{dbUsername}}:{{dbPassword}}@{{dbHost}}:{{dbPort}}/{{dbDatabase}}',
+          // );
 
           dbType = res.dbType;
           dbHost = res.dbHost;
-          dbPort = res.dbPort;
+          // dbPort = res.dbPort;
           dbUsername = res.dbUsername;
           dbPassword = res.dbPassword;
           dbDatabase = res.dbDatabase;
@@ -52,6 +64,9 @@ import { TransformHelper } from '../../helpers';
           migrationsTableName: 'migrations',
           migrations: ['src/migrations/*.js'],
           migrationsRun: configService.get('APP_ENV') === 'dev',
+          ssl: {
+            rejectUnauthorized: false,
+          },
           cli: {
             migrationsDir: 'migration',
           },
@@ -65,6 +80,9 @@ import { TransformHelper } from '../../helpers';
     FrameworkModule,
     QuizGameModule,
     StoreModule,
+    RedisCacheModule,
+    TerminusModule,
+    HttpModule,
   ],
   controllers: [AppController],
   providers: [AppService],

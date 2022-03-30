@@ -2,6 +2,7 @@ import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as redisStore from 'cache-manager-redis-store';
 import { TransformHelper } from '../../helpers';
+import { RedisCacheHealthIndicator } from './redisCache.health';
 import { RedisCacheService } from './redisCache.service';
 
 @Module({
@@ -37,8 +38,8 @@ import { RedisCacheService } from './redisCache.service';
       },
     }),
   ],
-  providers: [RedisCacheService],
-  exports: [RedisCacheService],
+  providers: [RedisCacheService, RedisCacheHealthIndicator],
+  exports: [RedisCacheService, RedisCacheHealthIndicator],
   controllers: [],
 })
 export class RedisCacheModule {}

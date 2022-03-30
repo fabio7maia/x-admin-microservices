@@ -33,6 +33,14 @@ export class TransformHelper {
 
       treatedTemplate = treatedTemplate.replace(separator, '');
 
+      // console.log('TransformHelper > extractValue > variables.forEach', {
+      //   value,
+      //   template,
+      //   treatedTemplate,
+      //   treatedValue,
+      //   separator,
+      // });
+
       if (treatedTemplate.length) {
         const separatorIndex = treatedValue.indexOf(separator);
 
@@ -43,11 +51,13 @@ export class TransformHelper {
         treatedValue = treatedValue.substring(separatorIndex);
         treatedValue = treatedValue.replace(separator, '');
       } else {
-        ret[variable.replace('{{', '').replace('}}', '')] = treatedValue;
+        ret[
+          variable.replace('{{', '').replace('}}', '')
+        ] = treatedValue.replace(separator, '');
       }
     });
 
-    console.log('TransformHelper > extractValue', { value, template, ret });
+    // console.log('TransformHelper > extractValue', { value, template, ret });
 
     return variables.length ? ret : notFoundReturn;
   };

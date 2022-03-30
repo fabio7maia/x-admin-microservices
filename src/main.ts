@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as Sentry from '@sentry/node';
 import { AppModule } from './modules/app/app.module';
 import { setupSwagger } from './swagger';
-import { ConfigService } from '@nestjs/config';
 import { LoggerInterceptor, LoggerService } from './modules/logger';
 
 async function bootstrap() {

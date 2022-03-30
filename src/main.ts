@@ -1,11 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import * as Sentry from '@sentry/node';
 import { AppModule } from './modules/app/app.module';
 import { setupSwagger } from './swagger';
-
-const port = process.env.PORT || 5000;
-const enableCors =
-  process.env.CORS === undefined ? true : process.env.CORS === 'true' || false;
+import { ConfigService } from '@nestjs/config';
+import { LoggerInterceptor, LoggerService } from './modules/logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(
@@ -13,9 +12,22 @@ async function bootstrap() {
     logger: console,
   }*/,
   );
+
+  const loggerService = app.get<LoggerService>(LoggerService);
+  app.useGlobalInterceptors(new LoggerInterceptor(loggerService));
+
+  const configService = app.get<ConfigService>(ConfigService);
+  const port = configService.get('PORT') || 5000;
+  const cors = configService.get('CORS') || true;
+  const sentryDsn = configService.get('SENTRY_DSN') || true;
+
+  Sentry.init({
+    dsn: sentryDsn,
+  });
+
   setupSwagger(app);
 
-  if (enableCors) {
+  if (cors) {
     app.enableCors();
   }
 

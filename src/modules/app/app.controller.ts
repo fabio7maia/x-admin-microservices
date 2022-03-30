@@ -15,4 +15,9 @@ export class AppController {
   root(): string {
     return this.appService.root();
   }
+
+  @Get()
+  version(): string {
+    return this.appService.version();
+  }
 }

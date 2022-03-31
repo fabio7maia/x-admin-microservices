@@ -116,7 +116,7 @@ export class QuizzesUsersDataController extends BaseController<QuizUserData> {
 
   @ApiOperation({
     summary: 'Delete user data quiz game',
-    operationId: 'deleteQuiz',
+    operationId: 'deleteUserDataQuiz',
   })
   @UseGuards(AuthGuard())
   @ApiBearerAuth()
